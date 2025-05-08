@@ -9,10 +9,7 @@
 -- DROP AND CREATE DATABASE
 DROP DATABASE IF EXISTS salesdb;
 CREATE DATABASE salesdb;
-
--- Connect to the new database (manual step in most PostgreSQL tools)
-
--- Now switch to the salesdb database to execute the following
+\connect salesdb;
 
 -- Create schema
 DROP SCHEMA IF EXISTS sales CASCADE;
