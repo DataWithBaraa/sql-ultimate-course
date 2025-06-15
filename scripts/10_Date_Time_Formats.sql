@@ -106,8 +106,8 @@ SELECT
     'Hour in 24-hour clock with leading zero'
 UNION ALL
 SELECT 
-    'm', 
-    FORMAT(GETDATE(), 'm'), 
+    'mm (custom)', 
+    CAST(CAST(FORMAT(GETDATE(), 'm') AS INT) AS VARCHAR), 
     'Minutes without leading zero'
 UNION ALL
 SELECT 
