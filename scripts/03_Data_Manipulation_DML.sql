@@ -35,6 +35,8 @@ VALUES
     ('Max', 9, 'Max', NULL)
 
 -- Insert a new record with full column values
+-- (if you ran the incorrect column order example above, delete that row first:
+--  DELETE FROM customers WHERE id = 8)
 INSERT INTO customers (id, first_name, country, score)
 VALUES (8, 'Max', 'USA', 368)
 
