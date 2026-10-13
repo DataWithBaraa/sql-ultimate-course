@@ -1,28 +1,31 @@
 /* ==============================================================================
-   SQL Joins 
--------------------------------------------------------------------------------
+   SQL Joins
+---------------------------------------------------------------------------------
    This document provides an overview of SQL joins, which allow combining data
    from multiple tables to retrieve meaningful insights.
 
    Table of Contents:
-     1. Basic Joins
+     1. BASIC JOINS
         - INNER JOIN
         - LEFT JOIN
         - RIGHT JOIN
         - FULL JOIN
-     2. Advanced Joins
+     2. ADVANCED JOINS
         - LEFT ANTI JOIN
         - RIGHT ANTI JOIN
         - ALTERNATIVE INNER JOIN
         - FULL ANTI JOIN
         - CROSS JOIN
-     3. Multiple Table Joins (4 Tables)
+     3. MULTIPLE TABLE JOINS (4 TABLES)
 =================================================================================
 */
 
-/* ============================================================================== 
-   BASIC JOINS 
-=============================================================================== */
+-- Run this line first: the queries in this script use MyDatabase (section 3 uses SalesDB)
+USE MyDatabase;
+
+/* ==============================================================================
+   1. BASIC JOINS
+============================================================================== */
 
 -- No Join
 /* Retrieve all data from customers and orders as separate results */
@@ -30,7 +33,7 @@ SELECT * FROM customers;
 SELECT * FROM orders;
 
 -- INNER JOIN
-/* Get all customers along with their orders, 
+/* Get all customers along with their orders,
    but only for customers who have placed an order */
 SELECT
     c.id,
@@ -42,7 +45,7 @@ INNER JOIN orders AS o
 ON c.id = o.customer_id
 
 -- LEFT JOIN
-/* Get all customers along with their orders, 
+/* Get all customers along with their orders,
    including those without orders */
 SELECT
     c.id,
@@ -54,7 +57,7 @@ LEFT JOIN orders AS o
 ON c.id = o.customer_id
 
 -- RIGHT JOIN
-/* Get all customers along with their orders, 
+/* Get all customers along with their orders,
    including orders without matching customers */
 SELECT
     c.id,
@@ -62,19 +65,19 @@ SELECT
     o.order_id,
     o.customer_id,
     o.sales
-FROM customers AS c 
-RIGHT JOIN orders AS o 
+FROM customers AS c
+RIGHT JOIN orders AS o
 ON c.id = o.customer_id
 
 -- Alternative to RIGHT JOIN using LEFT JOIN
-/* Get all customers along with their orders, 
+/* Get all customers along with their orders,
    including orders without matching customers */
 SELECT
     c.id,
     c.first_name,
     o.order_id,
     o.sales
-FROM orders AS o 
+FROM orders AS o
 LEFT JOIN customers AS c
 ON c.id = o.customer_id
 
@@ -86,13 +89,13 @@ SELECT
     o.order_id,
     o.customer_id,
     o.sales
-FROM customers AS c 
-FULL JOIN orders AS o 
+FROM customers AS c
+FULL JOIN orders AS o
 ON c.id = o.customer_id
 
-/* ============================================================================== 
-   ADVANCED JOINS
-=============================================================================== */
+/* ==============================================================================
+   2. ADVANCED JOINS
+============================================================================== */
 
 -- LEFT ANTI JOIN
 /* Get all customers who haven't placed any order */
@@ -113,13 +116,13 @@ WHERE c.id IS NULL
 -- Alternative to RIGHT ANTI JOIN using LEFT JOIN
 /* Get all orders without matching customers */
 SELECT *
-FROM orders AS o 
+FROM orders AS o
 LEFT JOIN customers AS c
 ON c.id = o.customer_id
 WHERE c.id IS NULL
 
 -- Alternative to INNER JOIN using LEFT JOIN
-/* Get all customers along with their orders, 
+/* Get all customers along with their orders,
    but only for customers who have placed an order */
 SELECT *
 FROM customers AS c
@@ -135,8 +138,8 @@ SELECT
     o.order_id,
     o.customer_id,
     o.sales
-FROM customers AS c 
-FULL JOIN orders AS o 
+FROM customers AS c
+FULL JOIN orders AS o
 ON c.id = o.customer_id
 WHERE o.customer_id IS NULL OR c.id IS NULL
 
@@ -146,11 +149,11 @@ SELECT *
 FROM customers
 CROSS JOIN orders
 
-/* ============================================================================== 
-   MULTIPLE TABLE JOINS (4 Tables)
-=============================================================================== */
+/* ==============================================================================
+   3. MULTIPLE TABLE JOINS (4 TABLES)
+============================================================================== */
 
-/* Task: Using SalesDB, Retrieve a list of all orders, along with the related customer, product, 
+/* TASK: Using SalesDB, Retrieve a list of all orders, along with the related customer, product,
    and employee details. For each order, display:
    - Order ID
    - Customer's name
@@ -161,15 +164,15 @@ CROSS JOIN orders
 
 USE SalesDB
 
-SELECT 
+SELECT
     o.OrderID,
     o.Sales,
     c.FirstName AS CustomerFirstName,
-    c.LastName AS CustomerLastName,
-    p.Product AS ProductName,
+    c.LastName  AS CustomerLastName,
+    p.Product   AS ProductName,
     p.Price,
     e.FirstName AS EmployeeFirstName,
-    e.LastName AS EmployeeLastName
+    e.LastName  AS EmployeeLastName
 FROM Sales.Orders AS o
 LEFT JOIN Sales.Customers AS c
 ON o.CustomerID = c.CustomerID

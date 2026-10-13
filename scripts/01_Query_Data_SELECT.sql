@@ -1,26 +1,30 @@
 /* ==============================================================================
    SQL SELECT Query
--------------------------------------------------------------------------------
-   This guide covers various SELECT query techniques used for retrieving, 
+---------------------------------------------------------------------------------
+   This guide covers various SELECT query techniques used for retrieving,
    filtering, sorting, and aggregating data efficiently.
 
    Table of Contents:
-     1. SELECT ALL COLUMNS
-     2. SELECT SPECIFIC COLUMNS
-     3. WHERE CLAUSE
-     4. ORDER BY
-     5. GROUP BY
-     6. HAVING
-     7. DISTINCT
-     8. TOP
-     9. Combining Queries
-	 10. COOL STUFF - Additional SQL Features
+      1. COMMENTS
+      2. SELECT ALL COLUMNS
+      3. SELECT FEW COLUMNS
+      4. WHERE
+      5. ORDER BY
+      6. GROUP BY
+      7. HAVING
+      8. DISTINCT
+      9. TOP
+     10. ALL TOGETHER
+     11. COOL STUFF | ADDITIONAL SQL FEATURES
 =================================================================================
 */
 
+-- Run this line first: every query in this script uses MyDatabase
+USE MyDatabase;
+
 /* ==============================================================================
-   COMMENTS
-=============================================================================== */
+   1. COMMENTS
+============================================================================== */
 
 -- This is a single-line comment.
 
@@ -31,8 +35,8 @@
 */
 
 /* ==============================================================================
-   SELECT ALL COLUMNS
-=============================================================================== */
+   2. SELECT ALL COLUMNS
+============================================================================== */
 
 -- Retrieve All Customer Data
 SELECT *
@@ -43,19 +47,19 @@ SELECT *
 FROM orders
 
 /* ==============================================================================
-   SELECT FEW COLUMNS
-=============================================================================== */
+   3. SELECT FEW COLUMNS
+============================================================================== */
 
 -- Retrieve each customer's name, country, and score.
-SELECT 
+SELECT
     first_name,
-    country, 
+    country,
     score
 FROM customers
 
 /* ==============================================================================
-   WHERE
-=============================================================================== */
+   4. WHERE
+============================================================================== */
 
 -- Retrieve customers with a score not equal to 0
 SELECT *
@@ -75,34 +79,34 @@ FROM customers
 WHERE country = 'Germany'
 
 /* ==============================================================================
-   ORDER BY
-=============================================================================== */
+   5. ORDER BY
+============================================================================== */
 
-/* Retrieve all customers and 
+/* Retrieve all customers and
    sort the results by the highest score first. */
 SELECT *
 FROM customers
 ORDER BY score DESC
 
-/* Retrieve all customers and 
+/* Retrieve all customers and
    sort the results by the lowest score first. */
 SELECT *
 FROM customers
 ORDER BY score ASC
 
-/* Retrieve all customers and 
+/* Retrieve all customers and
    sort the results by the country. */
 SELECT *
 FROM customers
 ORDER BY country ASC
 
-/* Retrieve all customers and 
+/* Retrieve all customers and
    sort the results by the country and then by the highest score. */
 SELECT *
 FROM customers
 ORDER BY country ASC, score DESC
 
-/* Retrieve the name, country, and score of customers 
+/* Retrieve the name, country, and score of customers
    whose score is not equal to 0
    and sort the results by the highest score first. */
 SELECT
@@ -114,19 +118,19 @@ WHERE score != 0
 ORDER BY score DESC
 
 /* ==============================================================================
-   GROUP BY
-=============================================================================== */
+   6. GROUP BY
+============================================================================== */
 
 -- Find the total score for each country
-SELECT 
+SELECT
     country,
     SUM(score) AS total_score
 FROM customers
 GROUP BY country
 
-/* This will not work because 'first_name' is neither part of the GROUP BY 
+/* This will not work because 'first_name' is neither part of the GROUP BY
    nor wrapped in an aggregate function. SQL doesn't know how to handle this column. */
-SELECT 
+SELECT
     country,
     first_name,
     SUM(score) AS total_score
@@ -134,16 +138,16 @@ FROM customers
 GROUP BY country
 
 -- Find the total score and total number of customers for each country
-SELECT 
+SELECT
     country,
     SUM(score) AS total_score,
-    COUNT(id) AS total_customers
+    COUNT(id)  AS total_customers
 FROM customers
 GROUP BY country
 
 /* ==============================================================================
-   HAVING
-=============================================================================== */
+   7. HAVING
+============================================================================== */
 
 /* Find the average score for each country
    and return only those countries with an average score greater than 430 */
@@ -166,16 +170,16 @@ GROUP BY country
 HAVING AVG(score) > 430
 
 /* ==============================================================================
-   DISTINCT
-=============================================================================== */
+   8. DISTINCT
+============================================================================== */
 
 -- Return Unique list of all countries
 SELECT DISTINCT country
 FROM customers
 
 /* ==============================================================================
-   TOP
-=============================================================================== */
+   9. TOP
+============================================================================== */
 
 -- Retrieve only 3 Customers
 SELECT TOP 3 *
@@ -197,10 +201,10 @@ FROM orders
 ORDER BY order_date DESC
 
 /* ==============================================================================
-   All Together
-=============================================================================== */
+   10. ALL TOGETHER
+============================================================================== */
 
-/* Calculate the average score for each country 
+/* Calculate the average score for each country
    considering only customers with a score not equal to 0
    and return only those countries with an average score greater than 430
    and sort the results by the highest average score first. */
@@ -213,9 +217,9 @@ GROUP BY country
 HAVING AVG(score) > 430
 ORDER BY AVG(score) DESC
 
-/* ============================================================================== 
-   COOL STUFF - Additional SQL Features
-=============================================================================== */
+/* ==============================================================================
+   11. COOL STUFF | ADDITIONAL SQL FEATURES
+============================================================================== */
 
 -- Execute multiple queries at once
 SELECT * FROM customers;

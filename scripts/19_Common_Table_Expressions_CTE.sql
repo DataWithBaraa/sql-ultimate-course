@@ -1,6 +1,6 @@
 /* ==============================================================================
    SQL Common Table Expressions (CTEs)
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
    This script demonstrates the use of Common Table Expressions (CTEs) in SQL Server.
    It includes examples of non-recursive CTEs for data aggregation and segmentation,
    as well as recursive CTEs for generating sequences and building hierarchical data.
@@ -9,15 +9,17 @@
      1. NON-RECURSIVE CTE
      2. RECURSIVE CTE | GENERATE SEQUENCE
      3. RECURSIVE CTE | BUILD HIERARCHY
-===============================================================================
+=================================================================================
 */
 
+-- Run this line first: every query in this script uses SalesDB
+USE SalesDB;
+
 /* ==============================================================================
-   NON-RECURSIVE CTE
-===============================================================================*/
+   1. NON-RECURSIVE CTE
+============================================================================== */
 
-
--- Step1: Find the total Sales Per Customer (Standalone CTE)
+-- Step 1: Find the total Sales Per Customer (Standalone CTE)
 WITH CTE_Total_Sales AS
 (
     SELECT
@@ -26,7 +28,7 @@ WITH CTE_Total_Sales AS
     FROM Sales.Orders
     GROUP BY CustomerID
 )
--- Step2: Find the last order date for each customer (Standalone CTE)
+-- Step 2: Find the last order date for each customer (Standalone CTE)
 , CTE_Last_Order AS
 (
     SELECT
@@ -35,7 +37,7 @@ WITH CTE_Total_Sales AS
     FROM Sales.Orders
     GROUP BY CustomerID
 )
--- Step3: Rank Customers based on Total Sales Per Customer (Nested CTE)
+-- Step 3: Rank Customers based on Total Sales Per Customer (Nested CTE)
 , CTE_Customer_Rank AS
 (
     SELECT
@@ -44,13 +46,13 @@ WITH CTE_Total_Sales AS
         RANK() OVER (ORDER BY TotalSales DESC) AS CustomerRank
     FROM CTE_Total_Sales
 )
--- Step4: segment customers based on their total sales (Nested CTE)
+-- Step 4: segment customers based on their total sales (Nested CTE)
 , CTE_Customer_Segments AS
 (
     SELECT
         CustomerID,
         TotalSales,
-        CASE 
+        CASE
             WHEN TotalSales > 100 THEN 'High'
             WHEN TotalSales > 80  THEN 'Medium'
             ELSE 'Low'
@@ -77,8 +79,8 @@ LEFT JOIN CTE_Customer_Segments AS ccs
     ON ccs.CustomerID = c.CustomerID;
 
 /* ==============================================================================
-   RECURSIVE CTE | GENERATE SEQUENCE
-===============================================================================*/
+   2. RECURSIVE CTE | GENERATE SEQUENCE
+============================================================================== */
 
 /* TASK 2:
    Generate a sequence of numbers from 1 to 20.
@@ -115,8 +117,8 @@ FROM Series
 OPTION (MAXRECURSION 5000);
 
 /* ==============================================================================
-   RECURSIVE CTE | BUILD HIERARCHY
-===============================================================================*/
+   3. RECURSIVE CTE | BUILD HIERARCHY
+============================================================================== */
 
 /* TASK 4:
    Build the employee hierarchy by displaying each employee's level within the organization.

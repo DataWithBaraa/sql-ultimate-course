@@ -1,23 +1,24 @@
 /* ==============================================================================
    SQL Window Ranking Functions
--------------------------------------------------------------------------------
-   These functions allow you to rank and order rows within a result set 
-   without the need for complex joins or subqueries. They enable you to assign 
-   unique or non-unique rankings, group rows into buckets, and analyze data 
+---------------------------------------------------------------------------------
+   These functions allow you to rank and order rows within a result set
+   without the need for complex joins or subqueries. They enable you to assign
+   unique or non-unique rankings, group rows into buckets, and analyze data
    distributions on ordered data.
 
    Table of Contents:
-     1. ROW_NUMBER
-     2. RANK
-     3. DENSE_RANK
-     4. NTILE
-     5. CUME_DIST
+     1. ROW_NUMBER, RANK, DENSE_RANK
+     2. NTILE
+     3. CUME_DIST
 =================================================================================
 */
 
-/* ============================================================
-   SQL WINDOW RANKING | ROW_NUMBER, RANK, DENSE_RANK
-   ============================================================ */
+-- Run this line first: every query in this script uses SalesDB
+USE SalesDB;
+
+/* ==============================================================================
+   1. ROW_NUMBER, RANK, DENSE_RANK
+============================================================================== */
 
 /* TASK 1:
    Rank Orders Based on Sales from Highest to Lowest
@@ -27,7 +28,7 @@ SELECT
     ProductID,
     Sales,
     ROW_NUMBER() OVER (ORDER BY Sales DESC) AS SalesRank_Row,
-    RANK() OVER (ORDER BY Sales DESC) AS SalesRank_Rank,
+    RANK() OVER (ORDER BY Sales DESC)       AS SalesRank_Rank,
     DENSE_RANK() OVER (ORDER BY Sales DESC) AS SalesRank_Dense
 FROM Sales.Orders;
 
@@ -52,7 +53,7 @@ SELECT *
 FROM (
     SELECT
         CustomerID,
-        SUM(Sales) AS TotalSales,
+        SUM(Sales)                              AS TotalSales,
         ROW_NUMBER() OVER (ORDER BY SUM(Sales)) AS RankCustomers
     FROM Sales.Orders
     GROUP BY CustomerID
@@ -80,20 +81,20 @@ FROM (
 ) AS UniqueOrdersArchive
 WHERE rn = 1;
 
-/* ============================================================
-   SQL WINDOW RANKING | NTILE
-   ============================================================ */
+/* ==============================================================================
+   2. NTILE
+============================================================================== */
 
 /* TASK 6:
    Divide Orders into Groups Based on Sales
 */
-SELECT 
+SELECT
     OrderID,
     Sales,
-    NTILE(1) OVER (ORDER BY Sales) AS OneBucket,
-    NTILE(2) OVER (ORDER BY Sales) AS TwoBuckets,
-    NTILE(3) OVER (ORDER BY Sales) AS ThreeBuckets,
-    NTILE(4) OVER (ORDER BY Sales) AS FourBuckets,
+    NTILE(1) OVER (ORDER BY Sales)                        AS OneBucket,
+    NTILE(2) OVER (ORDER BY Sales)                        AS TwoBuckets,
+    NTILE(3) OVER (ORDER BY Sales)                        AS ThreeBuckets,
+    NTILE(4) OVER (ORDER BY Sales)                        AS FourBuckets,
     NTILE(2) OVER (PARTITION BY ProductID ORDER BY Sales) AS TwoBucketByProducts
 FROM Sales.Orders;
 
@@ -104,7 +105,7 @@ SELECT
     OrderID,
     Sales,
     Buckets,
-    CASE 
+    CASE
         WHEN Buckets = 1 THEN 'High'
         WHEN Buckets = 2 THEN 'Medium'
         WHEN Buckets = 3 THEN 'Low'
@@ -120,19 +121,19 @@ FROM (
 /* TASK 8:
    Divide Orders into Groups for Processing
 */
-SELECT 
+SELECT
     NTILE(5) OVER (ORDER BY OrderID) AS Buckets,
     *
 FROM Sales.Orders;
 
-/* ============================================================
-   SQL WINDOW RANKING | CUME_DIST
-   ============================================================ */
+/* ==============================================================================
+   3. CUME_DIST
+============================================================================== */
 
 /* TASK 9:
    Find Products that Fall Within the Highest 40% of the Prices
 */
-SELECT 
+SELECT
     Product,
     Price,
     DistRank,

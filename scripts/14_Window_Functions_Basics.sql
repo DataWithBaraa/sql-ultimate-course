@@ -1,50 +1,53 @@
 /* ==============================================================================
    SQL Window Functions
--------------------------------------------------------------------------------
-   SQL window functions enable advanced calculations across sets of rows 
+---------------------------------------------------------------------------------
+   SQL window functions enable advanced calculations across sets of rows
    related to the current row without resorting to complex subqueries or joins.
    This script demonstrates the fundamentals and key clauses of window functions,
-   including the OVER, PARTITION, ORDER, and FRAME clauses, as well as common rules 
+   including the OVER, PARTITION, ORDER, and FRAME clauses, as well as common rules
    and a GROUP BY use case.
 
    Table of Contents:
-     1. SQL Window Basics
-     2. SQL Window OVER Clause
-     3. SQL Window PARTITION Clause
-     4. SQL Window ORDER Clause
-     5. SQL Window FRAME Clause
-     6. SQL Window Rules
-     7. SQL Window with GROUP BY
+     1. BASICS
+     2. OVER CLAUSE
+     3. PARTITION CLAUSE
+     4. ORDER CLAUSE
+     5. FRAME CLAUSE
+     6. RULES
+     7. WINDOW FUNCTIONS WITH GROUP BY
 =================================================================================
 */
 
-/* ==============================================================================
-   SQL WINDOW FUNCTIONS | BASICS
-===============================================================================*/
+-- Run this line first: every query in this script uses SalesDB
+USE SalesDB;
 
-/* TASK 1: 
-   Calculate the Total Sales Across All Orders 
+/* ==============================================================================
+   1. BASICS
+============================================================================== */
+
+/* TASK 1:
+   Calculate the Total Sales Across All Orders
 */
 SELECT
     SUM(Sales) AS Total_Sales
 FROM Sales.Orders;
 
-/* TASK 2: 
-   Calculate the Total Sales for Each Product 
+/* TASK 2:
+   Calculate the Total Sales for Each Product
 */
-SELECT 
+SELECT
     ProductID,
     SUM(Sales) AS Total_Sales
 FROM Sales.Orders
 GROUP BY ProductID;
 
 /* ==============================================================================
-   SQL WINDOW FUNCTIONS | OVER CLAUSE
-===============================================================================*/
+   2. OVER CLAUSE
+============================================================================== */
 
-/* TASK 3: 
+/* TASK 3:
    Find the total sales across all orders,
-   additionally providing details such as OrderID and OrderDate 
+   additionally providing details such as OrderID and OrderDate
 */
 SELECT
     OrderID,
@@ -55,26 +58,26 @@ SELECT
 FROM Sales.Orders;
 
 /* ==============================================================================
-   SQL WINDOW FUNCTIONS | PARTITION CLAUSE
-===============================================================================*/
+   3. PARTITION CLAUSE
+============================================================================== */
 
-/* TASK 4: 
+/* TASK 4:
    Find the total sales across all orders and for each product,
-   additionally providing details such as OrderID and OrderDate 
+   additionally providing details such as OrderID and OrderDate
 */
 SELECT
     OrderID,
     OrderDate,
     ProductID,
     Sales,
-    SUM(Sales) OVER () AS Total_Sales,
+    SUM(Sales) OVER ()                       AS Total_Sales,
     SUM(Sales) OVER (PARTITION BY ProductID) AS Sales_By_Product
 FROM Sales.Orders;
 
-/* TASK 5: 
+/* TASK 5:
    Find the total sales across all orders, for each product,
    and for each combination of product and order status,
-   additionally providing details such as OrderID and OrderDate 
+   additionally providing details such as OrderID and OrderDate
 */
 SELECT
     OrderID,
@@ -82,16 +85,16 @@ SELECT
     ProductID,
     OrderStatus,
     Sales,
-    SUM(Sales) OVER () AS Total_Sales,
-    SUM(Sales) OVER (PARTITION BY ProductID) AS Sales_By_Product,
+    SUM(Sales) OVER ()                                    AS Total_Sales,
+    SUM(Sales) OVER (PARTITION BY ProductID)              AS Sales_By_Product,
     SUM(Sales) OVER (PARTITION BY ProductID, OrderStatus) AS Sales_By_Product_Status
 FROM Sales.Orders;
 
 /* ==============================================================================
-   SQL WINDOW FUNCTIONS | ORDER CLAUSE
-===============================================================================*/
+   4. ORDER CLAUSE
+============================================================================== */
 
-/* TASK 6: 
+/* TASK 6:
    Rank each order by Sales from highest to lowest */
 SELECT
     OrderID,
@@ -101,11 +104,11 @@ SELECT
 FROM Sales.Orders;
 
 /* ==============================================================================
-   SQL WINDOW FUNCTIONS | FRAME CLAUSE
-===============================================================================*/
+   5. FRAME CLAUSE
+============================================================================== */
 
-/* TASK 7: 
-   Calculate Total Sales by Order Status for current and next two orders 
+/* TASK 7:
+   Calculate Total Sales by Order Status for current and next two orders
 */
 SELECT
     OrderID,
@@ -114,14 +117,14 @@ SELECT
     OrderStatus,
     Sales,
     SUM(Sales) OVER (
-        PARTITION BY OrderStatus 
-        ORDER BY OrderDate 
+        PARTITION BY OrderStatus
+        ORDER BY OrderDate
         ROWS BETWEEN CURRENT ROW AND 2 FOLLOWING
     ) AS Total_Sales
 FROM Sales.Orders;
 
-/* TASK 8: 
-   Calculate Total Sales by Order Status for current and previous two orders 
+/* TASK 8:
+   Calculate Total Sales by Order Status for current and previous two orders
 */
 SELECT
     OrderID,
@@ -130,14 +133,14 @@ SELECT
     OrderStatus,
     Sales,
     SUM(Sales) OVER (
-        PARTITION BY OrderStatus 
-        ORDER BY OrderDate 
+        PARTITION BY OrderStatus
+        ORDER BY OrderDate
         ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
     ) AS Total_Sales
 FROM Sales.Orders;
 
-/* TASK 9: 
-   Calculate Total Sales by Order Status from previous two orders only 
+/* TASK 9:
+   Calculate Total Sales by Order Status from previous two orders only
 */
 SELECT
     OrderID,
@@ -146,14 +149,14 @@ SELECT
     OrderStatus,
     Sales,
     SUM(Sales) OVER (
-        PARTITION BY OrderStatus 
-        ORDER BY OrderDate 
+        PARTITION BY OrderStatus
+        ORDER BY OrderDate
         ROWS 2 PRECEDING
     ) AS Total_Sales
 FROM Sales.Orders;
 
-/* TASK 10: 
-   Calculate cumulative Total Sales by Order Status up to the current order 
+/* TASK 10:
+   Calculate cumulative Total Sales by Order Status up to the current order
 */
 SELECT
     OrderID,
@@ -162,14 +165,14 @@ SELECT
     OrderStatus,
     Sales,
     SUM(Sales) OVER (
-        PARTITION BY OrderStatus 
-        ORDER BY OrderDate 
+        PARTITION BY OrderStatus
+        ORDER BY OrderDate
         ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
     ) AS Total_Sales
 FROM Sales.Orders;
 
-/* TASK 11: 
-   Calculate cumulative Total Sales by Order Status from the start to the current row 
+/* TASK 11:
+   Calculate cumulative Total Sales by Order Status from the start to the current row
 */
 SELECT
     OrderID,
@@ -178,18 +181,18 @@ SELECT
     OrderStatus,
     Sales,
     SUM(Sales) OVER (
-        PARTITION BY OrderStatus 
-        ORDER BY OrderDate 
+        PARTITION BY OrderStatus
+        ORDER BY OrderDate
         ROWS UNBOUNDED PRECEDING
     ) AS Total_Sales
 FROM Sales.Orders;
 
 /* ==============================================================================
-   SQL WINDOW FUNCTIONS | RULES
-===============================================================================*/
+   6. RULES
+============================================================================== */
 
-/* RULE 1: 
-   Window functions can only be used in SELECT or ORDER BY clauses 
+/* RULE 1:
+   Window functions can only be used in SELECT or ORDER BY clauses
 */
 SELECT
     OrderID,
@@ -199,10 +202,10 @@ SELECT
     Sales,
     SUM(Sales) OVER (PARTITION BY OrderStatus) AS Total_Sales
 FROM Sales.Orders
-WHERE SUM(Sales) OVER (PARTITION BY OrderStatus) > 100;  -- Invalid: window function in WHERE clause
+WHERE SUM(Sales) OVER (PARTITION BY OrderStatus) > 100;  -- Invalid: window function in WHERE
 
-/* RULE 2: 
-   Window functions cannot be nested 
+/* RULE 2:
+   Window functions cannot be nested
 */
 SELECT
     OrderID,
@@ -210,19 +213,20 @@ SELECT
     ProductID,
     OrderStatus,
     Sales,
-    SUM(SUM(Sales) OVER (PARTITION BY OrderStatus)) OVER (PARTITION BY OrderStatus) AS Total_Sales  -- Invalid nesting
+    -- Invalid nesting
+    SUM(SUM(Sales) OVER (PARTITION BY OrderStatus)) OVER (PARTITION BY OrderStatus) AS Total_Sales
 FROM Sales.Orders;
 
 /* ==============================================================================
-   SQL WINDOW FUNCTIONS | GROUP BY
-===============================================================================*/
+   7. WINDOW FUNCTIONS WITH GROUP BY
+============================================================================== */
 
-/* TASK 12: 
-   Rank customers by their total sales 
+/* TASK 12:
+   Rank customers by their total sales
 */
 SELECT
     CustomerID,
-    SUM(Sales) AS Total_Sales,
+    SUM(Sales)                             AS Total_Sales,
     RANK() OVER (ORDER BY SUM(Sales) DESC) AS Rank_Customers
 FROM Sales.Orders
 GROUP BY CustomerID;

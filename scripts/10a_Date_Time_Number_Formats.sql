@@ -1,12 +1,12 @@
 /* ==============================================================================
    SQL Date & Time | Number Format Specifiers
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
    All numeric format specifiers that can be used with the FORMAT() function.
    This is the file opened in the video.
-===============================================================================
+=================================================================================
 */
 
--- All numeric format specifiers can be used in FORMAT SQL Function	
+-- All numeric format specifiers can be used in FORMAT SQL Function
 SELECT 'N' AS FormatType, FORMAT(1234.56, 'N') AS FormattedValue
 UNION ALL
 SELECT 'P' AS FormatType, FORMAT(1234.56, 'P') AS FormattedValue

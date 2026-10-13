@@ -1,48 +1,51 @@
 /* ==============================================================================
    SQL Data Manipulation Language (DML)
--------------------------------------------------------------------------------
-   This guide covers the essential DML commands used for inserting, updating, 
+---------------------------------------------------------------------------------
+   This guide covers the essential DML commands used for inserting, updating,
    and deleting data in database tables.
 
    Table of Contents:
-     1. INSERT - Adding Data to Tables
-     2. UPDATE - Modifying Existing Data
-     3. DELETE - Removing Data from Tables
+     1. INSERT
+     2. UPDATE
+     3. DELETE
 =================================================================================
 */
 
-/* ============================================================================== 
-   INSERT
-=============================================================================== */
+-- Run this line first: every query in this script uses MyDatabase
+USE MyDatabase;
+
+/* ==============================================================================
+   1. INSERT
+============================================================================== */
 /* #1 Method: Manual INSERT using VALUES */
 -- Insert new records into the customers table
 INSERT INTO customers (id, first_name, country, score)
-VALUES 
+VALUES
     (6, 'Anna', 'USA', NULL),
     (7, 'Sam', NULL, 100)
 
--- Incorrect column order 
+-- Incorrect column order
 INSERT INTO customers (id, first_name, country, score)
-VALUES 
+VALUES
     (8, 'USA', 'Max', NULL)
-    
+
 -- Incorrect data type in values
 INSERT INTO customers (id, first_name, country, score)
-VALUES 
-	('Max', 9, 'Max', NULL)
+VALUES
+    ('Max', 9, 'Max', NULL)
 
 -- Insert a new record with full column values
 INSERT INTO customers (id, first_name, country, score)
 VALUES (8, 'Max', 'USA', 368)
 
 -- Insert a new record without specifying column names (not recommended)
-INSERT INTO customers 
-VALUES 
+INSERT INTO customers
+VALUES
     (9, 'Andreas', 'Germany', NULL)
-    
+
 -- Insert a record with only id and first_name (other columns will be NULL or default values)
 INSERT INTO customers (id, first_name)
-VALUES 
+VALUES
     (10, 'Sahra')
 
 /* #2 Method: INSERT DATA USING SELECT - Moving Data From One Table to Another */
@@ -55,9 +58,9 @@ SELECT
     'Unknown'
 FROM customers
 
-/* ============================================================================== 
-   UPDATE
-=============================================================================== */
+/* ==============================================================================
+   2. UPDATE
+============================================================================== */
 
 -- Change the score of customer with ID 6 to 0
 UPDATE customers
@@ -80,9 +83,9 @@ SELECT *
 FROM customers
 WHERE score IS NULL
 
-/* ============================================================================== 
-   DELETE
-=============================================================================== */
+/* ==============================================================================
+   3. DELETE
+============================================================================== */
 
 -- Select customers with an ID greater than 5 before deleting
 SELECT *

@@ -1,28 +1,31 @@
 /* ==============================================================================
    SQL CASE Statement
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
    This script demonstrates various use cases of the SQL CASE statement, including
-   data categorization, mapping, quick form syntax, handling nulls, and conditional 
+   data categorization, mapping, quick form syntax, handling nulls, and conditional
    aggregation.
-   
+
    Table of Contents:
-     1. Categorize Data
-     2. Mapping
-     3. Quick Form of Case Statement
-     4. Handling Nulls
-     5. Conditional Aggregation
+     1. USE CASE | CATEGORIZE DATA
+     2. USE CASE | MAPPING
+     3. QUICK FORM SYNTAX
+     4. HANDLING NULLS
+     5. CONDITIONAL AGGREGATION
 =================================================================================
 */
 
-/* ==============================================================================
-   USE CASE: CATEGORIZE DATA
-===============================================================================*/
+-- Run this line first: every query in this script uses SalesDB
+USE SalesDB;
 
-/* TASK 1: 
+/* ==============================================================================
+   1. USE CASE | CATEGORIZE DATA
+============================================================================== */
+
+/* TASK 1:
    Create a report showing total sales for each category:
-	   - High: Sales over 50
-	   - Medium: Sales between 20 and 50
-	   - Low: Sales 20 or less
+       - High: Sales over 50
+       - Medium: Sales between 20 and 50
+       - Low: Sales 20 or less
    The results are sorted from highest to lowest total sales.
 */
 SELECT
@@ -43,18 +46,18 @@ GROUP BY Category
 ORDER BY TotalSales DESC;
 
 /* ==============================================================================
-   USE CASE: MAPPING
-===============================================================================*/
+   2. USE CASE | MAPPING
+============================================================================== */
 
-/* TASK 2: 
-   Retrieve customer details with abbreviated country codes 
+/* TASK 2:
+   Retrieve customer details with abbreviated country codes
 */
 SELECT
     CustomerID,
     FirstName,
     LastName,
     Country,
-    CASE 
+    CASE
         WHEN Country = 'Germany' THEN 'DE'
         WHEN Country = 'USA'     THEN 'US'
         ELSE 'n/a'
@@ -62,18 +65,18 @@ SELECT
 FROM Sales.Customers;
 
 /* ==============================================================================
-   QUICK FORM SYNTAX
-===============================================================================*/
+   3. QUICK FORM SYNTAX
+============================================================================== */
 
-/* TASK 3: 
-   Retrieve customer details with abbreviated country codes using quick form 
+/* TASK 3:
+   Retrieve customer details with abbreviated country codes using quick form
 */
 SELECT
     CustomerID,
     FirstName,
     LastName,
     Country,
-    CASE 
+    CASE
         WHEN Country = 'Germany' THEN 'DE'
         WHEN Country = 'USA'     THEN 'US'
         ELSE 'n/a'
@@ -86,10 +89,10 @@ SELECT
 FROM Sales.Customers;
 
 /* ==============================================================================
-   HANDLING NULLS
-===============================================================================*/
+   4. HANDLING NULLS
+============================================================================== */
 
-/* TASK 4: 
+/* TASK 4:
    Calculate the average score of customers, treating NULL as 0,
    and provide CustomerID and LastName details.
 */
@@ -111,11 +114,11 @@ SELECT
 FROM Sales.Customers;
 
 /* ==============================================================================
-   CONDITIONAL AGGREGATION
-===============================================================================*/
+   5. CONDITIONAL AGGREGATION
+============================================================================== */
 
-/* TASK 5: 
-   Count how many orders each customer made with sales greater than 30 
+/* TASK 5:
+   Count how many orders each customer made with sales greater than 30
 */
 SELECT
     CustomerID,

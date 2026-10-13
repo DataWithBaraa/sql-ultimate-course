@@ -1,26 +1,26 @@
-/* ============================================================================== 
+/* ==============================================================================
    SQL Filtering Data
--------------------------------------------------------------------------------
-   This document provides an overview of SQL filtering techniques using WHERE 
+---------------------------------------------------------------------------------
+   This document provides an overview of SQL filtering techniques using WHERE
    and various operators for precise data retrieval.
 
    Table of Contents:
-     1. Comparison Operators
+     1. COMPARISON OPERATORS
         - =, <>, >, >=, <, <=
-     2. Logical Operators
+     2. LOGICAL OPERATORS
         - AND, OR, NOT
-     3. Range Filtering
-        - BETWEEN
-     4. Set Filtering
-        - IN
-     5. Pattern Matching
-        - LIKE
+     3. RANGE FILTERING | BETWEEN
+     4. SET FILTERING | IN
+     5. PATTERN MATCHING | LIKE
 =================================================================================
 */
 
-/* ============================================================================== 
-   COMPARISON OPERATORS
-=============================================================================== */
+-- Run this line first: every query in this script uses MyDatabase
+USE MyDatabase;
+
+/* ==============================================================================
+   1. COMPARISON OPERATORS
+============================================================================== */
 
 -- Retrieve all customers from Germany.
 SELECT *
@@ -52,9 +52,9 @@ SELECT *
 FROM customers
 WHERE score <= 500
 
-/* ============================================================================== 
-   LOGICAL OPERATORS
-=============================================================================== */
+/* ==============================================================================
+   2. LOGICAL OPERATORS
+============================================================================== */
 
 /* Combining conditions using AND, OR, and NOT */
 
@@ -73,9 +73,9 @@ SELECT *
 FROM customers
 WHERE NOT score < 500
 
-/* ============================================================================== 
-   RANGE FILTERING - BETWEEN
-=============================================================================== */
+/* ==============================================================================
+   3. RANGE FILTERING | BETWEEN
+============================================================================== */
 
 -- Retrieve all customers whose score falls in the range between 100 and 500.
 SELECT *
@@ -87,18 +87,18 @@ SELECT *
 FROM customers
 WHERE score >= 100 AND score <= 500
 
-/* ============================================================================== 
-   SET FILTERING - IN
-=============================================================================== */
+/* ==============================================================================
+   4. SET FILTERING | IN
+============================================================================== */
 
 -- Retrieve all customers from either Germany or the USA.
 SELECT *
 FROM customers
 WHERE country IN ('Germany', 'USA')
 
-/* ============================================================================== 
-   PATTERN MATCHING - LIKE
-=============================================================================== */
+/* ==============================================================================
+   5. PATTERN MATCHING | LIKE
+============================================================================== */
 
 -- Find all customers whose first name starts with 'M'.
 SELECT *

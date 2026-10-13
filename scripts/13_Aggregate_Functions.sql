@@ -1,24 +1,26 @@
-/* ============================================================================== 
+/* ==============================================================================
    SQL Aggregate Functions
--------------------------------------------------------------------------------
-   This document provides an overview of SQL aggregate functions, which allow 
+---------------------------------------------------------------------------------
+   This document provides an overview of SQL aggregate functions, which allow
    performing calculations on multiple rows of data to generate summary results.
 
    Table of Contents:
-     1. Basic Aggregate Functions
+     1. BASIC AGGREGATE FUNCTIONS
         - COUNT
         - SUM
         - AVG
         - MAX
         - MIN
-     2. Grouped Aggregations
-        - GROUP BY
+     2. GROUPED AGGREGATIONS | GROUP BY
 =================================================================================
 */
 
-/* ============================================================================== 
-   BASIC AGGREGATE FUNCTIONS
-=============================================================================== */
+-- Run this line first: every query in this script uses MyDatabase
+USE MyDatabase;
+
+/* ==============================================================================
+   1. BASIC AGGREGATE FUNCTIONS
+============================================================================== */
 
 -- Find the total number of customers
 SELECT COUNT(*) AS total_customers
@@ -40,14 +42,15 @@ FROM customers
 SELECT MIN(score) AS min_score
 FROM customers
 
-/* ============================================================================== 
-   GROUPED AGGREGATIONS - GROUP BY
-=============================================================================== */
+/* ==============================================================================
+   2. GROUPED AGGREGATIONS | GROUP BY
+============================================================================== */
 
--- Find the number of orders, total sales, average sales, highest sales, and lowest sales per customer
+-- Find the number of orders, total sales, average sales,
+-- highest sales, and lowest sales per customer
 SELECT
     customer_id,
-    COUNT(*) AS total_orders,
+    COUNT(*)   AS total_orders,
     SUM(sales) AS total_sales,
     AVG(sales) AS avg_sales,
     MAX(sales) AS highest_sales,

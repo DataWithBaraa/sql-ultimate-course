@@ -1,22 +1,26 @@
 /* ==============================================================================
    SQL Views
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
    This script demonstrates various view use cases in SQL Server.
    It includes examples for creating, dropping, and modifying views, hiding
    query complexity, and implementing data security by controlling data access.
 
    Table of Contents:
-     1. Create, Drop, Modify View
-     2. USE CASE - HIDE COMPLEXITY
-     3. USE CASE - DATA SECURITY
-===============================================================================
+     1. CREATE, DROP, MODIFY VIEW
+     2. USE CASE | HIDE COMPLEXITY
+     3. USE CASE | DATA SECURITY
+=================================================================================
 */
 
-/* ==============================================================================
-   CREATE, DROP, MODIFY VIEW
-===============================================================================*/
+-- Run this line first: every query in this script uses SalesDB
+USE SalesDB;
+GO
 
-/* TASK:
+/* ==============================================================================
+   1. CREATE, DROP, MODIFY VIEW
+============================================================================== */
+
+/* TASK 1:
    Create a view that summarizes monthly sales by aggregating:
      - OrderMonth (truncated to month)
      - TotalSales, TotalOrders, and TotalQuantities.
@@ -25,11 +29,11 @@
 -- Create View
 CREATE VIEW Sales.V_Monthly_Summary AS
 (
-    SELECT 
+    SELECT
         DATETRUNC(month, OrderDate) AS OrderMonth,
-        SUM(Sales) AS TotalSales,
-        COUNT(OrderID) AS TotalOrders,
-        SUM(Quantity) AS TotalQuantities
+        SUM(Sales)                  AS TotalSales,
+        COUNT(OrderID)              AS TotalOrders,
+        SUM(Quantity)               AS TotalQuantities
     FROM Sales.Orders
     GROUP BY DATETRUNC(month, OrderDate)
 );
@@ -45,31 +49,31 @@ GO
 
 -- Re-create the view with modified logic
 CREATE VIEW Sales.V_Monthly_Summary AS
-SELECT 
+SELECT
     DATETRUNC(month, OrderDate) AS OrderMonth,
-    SUM(Sales) AS TotalSales,
-    COUNT(OrderID) AS TotalOrders
+    SUM(Sales)                  AS TotalSales,
+    COUNT(OrderID)              AS TotalOrders
 FROM Sales.Orders
 GROUP BY DATETRUNC(month, OrderDate);
 GO
 
 /* ==============================================================================
-   VIEW USE CASE | HIDE COMPLEXITY
-===============================================================================*/
+   2. USE CASE | HIDE COMPLEXITY
+============================================================================== */
 
-/* TASK:
+/* TASK 2:
    Create a view that combines details from Orders, Products, Customers, and Employees.
    This view abstracts the complexity of multiple table joins.
 */
 CREATE VIEW Sales.V_Order_Details AS
 (
-    SELECT 
+    SELECT
         o.OrderID,
         o.OrderDate,
         p.Product,
         p.Category,
         COALESCE(c.FirstName, '') + ' ' + COALESCE(c.LastName, '') AS CustomerName,
-        c.Country AS CustomerCountry,
+        c.Country                                                  AS CustomerCountry,
         COALESCE(e.FirstName, '') + ' ' + COALESCE(e.LastName, '') AS SalesName,
         e.Department,
         o.Sales,
@@ -82,22 +86,22 @@ CREATE VIEW Sales.V_Order_Details AS
 GO
 
 /* ==============================================================================
-   VIEW USE CASE | DATA SECURITY
-===============================================================================*/
+   3. USE CASE | DATA SECURITY
+============================================================================== */
 
-/* TASK:
+/* TASK 3:
    Create a view for the EU Sales Team that combines details from all tables,
    but excludes data related to the USA.
 */
 CREATE VIEW Sales.V_Order_Details_EU AS
 (
-    SELECT 
+    SELECT
         o.OrderID,
         o.OrderDate,
         p.Product,
         p.Category,
         COALESCE(c.FirstName, '') + ' ' + COALESCE(c.LastName, '') AS CustomerName,
-        c.Country AS CustomerCountry,
+        c.Country                                                  AS CustomerCountry,
         COALESCE(e.FirstName, '') + ' ' + COALESCE(e.LastName, '') AS SalesName,
         e.Department,
         o.Sales,

@@ -1,27 +1,35 @@
 /* ==============================================================================
    SQL Temporary Tables
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
    This script provides a generic example of data migration using a temporary
-   table. 
+   table.
+
+   Table of Contents:
+     1. CREATE TEMPORARY TABLE (#Orders)
+     2. CLEAN DATA IN TEMPORARY TABLE
+     3. LOAD CLEANED DATA INTO PERMANENT TABLE (Sales.OrdersTest)
 =================================================================================
 */
 
+-- Run this line first: every query in this script uses SalesDB
+USE SalesDB;
+
 /* ==============================================================================
-   Step 1: Create Temporary Table (#Orders)
+   STEP 1: CREATE TEMPORARY TABLE (#Orders)
 ============================================================================== */
 SELECT
     *
 INTO #Orders
 FROM Sales.Orders;
-  
+
 /* ==============================================================================
-   Step 2: Clean Data in Temporary Table
+   STEP 2: CLEAN DATA IN TEMPORARY TABLE
 ============================================================================== */
 DELETE FROM #Orders
 WHERE OrderStatus = 'Delivered';
-  
+
 /* ==============================================================================
-   Step 3: Load Cleaned Data into Permanent Table (Sales.OrdersTest)
+   STEP 3: LOAD CLEANED DATA INTO PERMANENT TABLE (Sales.OrdersTest)
 ============================================================================== */
 SELECT
     *

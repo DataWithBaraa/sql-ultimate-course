@@ -1,11 +1,15 @@
 /* ==============================================================================
    SQL Triggers
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
    This script demonstrates the creation of a logging table, a trigger, and
    an insert operation into the Sales.Employees table that fires the trigger.
    The trigger logs details of newly added employees into the Sales.EmployeeLogs table.
 =================================================================================
 */
+
+-- Run this line first: every query in this script uses SalesDB
+USE SalesDB;
+GO
 
 -- Step 1: Create Log Table
 CREATE TABLE Sales.EmployeeLogs

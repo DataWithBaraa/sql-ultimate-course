@@ -1,26 +1,29 @@
 /* ==============================================================================
    SQL Subquery Functions
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
    This script demonstrates various subquery techniques in SQL.
    It covers result types, subqueries in the FROM clause, in SELECT, in JOIN clauses,
    with comparison operators, IN, ANY, correlated subqueries, and EXISTS.
-   
+
    Table of Contents:
-     1. SUBQUERY - RESULT TYPES
-     2. SUBQUERY - FROM CLAUSE
-     3. SUBQUERY - SELECT
-     4. SUBQUERY - JOIN CLAUSE
-     5. SUBQUERY - COMPARISON OPERATORS 
-     6. SUBQUERY - IN OPERATOR
-     7. SUBQUERY - ANY OPERATOR
-     8. SUBQUERY - CORRELATED 
-     9. SUBQUERY - EXISTS OPERATOR
-===============================================================================
+     1. RESULT TYPES
+     2. FROM CLAUSE
+     3. SELECT CLAUSE
+     4. JOIN CLAUSE
+     5. COMPARISON OPERATORS
+     6. IN OPERATOR
+     7. ANY OPERATOR
+     8. CORRELATED SUBQUERY
+     9. EXISTS OPERATOR
+=================================================================================
 */
 
+-- Run this line first: every query in this script uses SalesDB
+USE SalesDB;
+
 /* ==============================================================================
-   SUBQUERY | RESULT TYPES
-===============================================================================*/
+   1. RESULT TYPES
+============================================================================== */
 
 /* Scalar Query */
 SELECT
@@ -39,8 +42,8 @@ SELECT
 FROM Sales.Orders;
 
 /* ==============================================================================
-   SUBQUERY | FROM CLAUSE
-===============================================================================*/
+   2. FROM CLAUSE
+============================================================================== */
 
 /* TASK 1:
    Find the products that have a price higher than the average price of all products.
@@ -76,8 +79,8 @@ FROM (
 ) AS t;
 
 /* ==============================================================================
-   SUBQUERY | SELECT
-===============================================================================*/
+   3. SELECT CLAUSE
+============================================================================== */
 
 /* TASK 3:
    Show the product IDs, product names, prices, and the total number of orders.
@@ -91,8 +94,8 @@ SELECT
 FROM Sales.Products;
 
 /* ==============================================================================
-   SUBQUERY | JOIN CLAUSE
-===============================================================================*/
+   4. JOIN CLAUSE
+============================================================================== */
 
 /* TASK 4:
    Show customer details along with their total sales.
@@ -102,7 +105,7 @@ SELECT
     c.*,
     t.TotalSales
 FROM Sales.Customers AS c
-LEFT JOIN ( 
+LEFT JOIN (
     -- Subquery
     SELECT
         CustomerID,
@@ -131,8 +134,8 @@ LEFT JOIN (
     ON c.CustomerID = o.CustomerID;
 
 /* ==============================================================================
-   SUBQUERY | COMPARISON OPERATORS
-===============================================================================*/
+   5. COMPARISON OPERATORS
+============================================================================== */
 
 /* TASK 6:
    Find the products that have a price higher than the average price of all products.
@@ -146,8 +149,8 @@ FROM Sales.Products
 WHERE Price > (SELECT AVG(Price) FROM Sales.Products); -- Subquery
 
 /* ==============================================================================
-   SUBQUERY | IN OPERATOR
-===============================================================================*/
+   6. IN OPERATOR
+============================================================================== */
 
 /* TASK 7:
    Show the details of orders made by customers in Germany.
@@ -180,14 +183,14 @@ WHERE CustomerID NOT IN (
 );
 
 /* ==============================================================================
-   SUBQUERY | ANY OPERATOR
-===============================================================================*/
+   7. ANY OPERATOR
+============================================================================== */
 
 /* TASK 9:
    Find female employees whose salaries are greater than the salaries of any male employees.
 */
 SELECT
-    EmployeeID, 
+    EmployeeID,
     FirstName,
     Salary
 FROM Sales.Employees
@@ -199,8 +202,8 @@ WHERE Gender = 'F'
   );
 
 /* ==============================================================================
-   CORRELATED SUBQUERY
-===============================================================================*/
+   8. CORRELATED SUBQUERY
+============================================================================== */
 
 /* TASK 10:
    Show all customer details and the total orders for each customer using a correlated subquery.
@@ -212,10 +215,9 @@ SELECT
      WHERE o.CustomerID = c.CustomerID) AS TotalSales
 FROM Sales.Customers AS c;
 
-
 /* ==============================================================================
-   SUBQUERY | EXISTS OPERATOR
-===============================================================================*/
+   9. EXISTS OPERATOR
+============================================================================== */
 
 /* TASK 11:
    Show the details of orders made by customers in Germany.
