@@ -2,11 +2,13 @@
 =============================================================
 Database Creation and Table Setup Script
 =============================================================
+RUN IN: SQL Server Management Studio (SSMS), connected to SQL Server.
+
 Script Purpose:
     This script creates a new SQL Server database named 'SalesDB'. 
     If the database already exists, it is dropped to ensure a clean setup. 
-    The script then creates three tables: 'customers', 'orders', and 'employees' 
-    with their respective schemas, and populates them with sample data.
+    The script then creates the 'Sales' schema with five tables: 'Customers', 'Employees', 
+    'Products', 'Orders' and 'OrdersArchive', and populates them with sample data.
     
 WARNING:
     Running this script will drop the entire 'SalesDB' database if it exists, 

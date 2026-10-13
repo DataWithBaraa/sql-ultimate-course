@@ -1,12 +1,21 @@
--- Connect to the default database (if not already connected)
-\c postgres
+-- =============================================================
+-- PostgreSQL Database Creation and Table Setup Script
+-- =============================================================
+-- RUN IN: a PostgreSQL tool (psql, pgAdmin, DBeaver, Postico).
+-- Not for SQL Server Management Studio: for SQL Server use datasets/sql-server/.
+--
+-- WARNING:
+-- This script assumes you are connected to the 'postgres' database
+-- and have the privileges to drop/create databases.
+-- It drops the 'MyDatabase' database if it exists.
 
--- Drop the 'MyDatabase' database if it exists and then create it.
+-- DROP AND CREATE DATABASE
 DROP DATABASE IF EXISTS "MyDatabase";
 CREATE DATABASE "MyDatabase";
 
--- Now connect to the new database.
-\c "MyDatabase"
+-- Connect to the new database "MyDatabase" (manual step in most PostgreSQL tools)
+
+-- Now switch to the "MyDatabase" database to execute the following
 
 -- ======================================================
 -- Table: customers

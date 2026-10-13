@@ -1,6 +1,9 @@
 -- =============================================================
 -- MySQL Database Creation and Table Setup Script
 -- =============================================================
+-- RUN IN: MySQL Workbench (or any MySQL client).
+-- Not for SQL Server Management Studio: for SQL Server use datasets/sql-server/.
+--
 -- WARNING:
 -- This script assumes you are connected with a user that has
 -- privileges to drop/create databases and tables.

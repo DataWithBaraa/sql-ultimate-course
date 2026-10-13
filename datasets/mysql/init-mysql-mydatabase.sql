@@ -2,6 +2,9 @@
 =============================================================
 Database Creation and Table Setup Script (MySQL Version)
 =============================================================
+RUN IN: MySQL Workbench (or any MySQL client).
+    Not for SQL Server Management Studio: for SQL Server use datasets/sql-server/.
+
 Script Purpose:
     This script creates a new MySQL database named 'MyDatabase'. 
     If the database already exists, it is dropped to ensure a clean setup. 
