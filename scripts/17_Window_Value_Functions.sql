@@ -45,6 +45,8 @@ FROM (
 SELECT
     CustomerID,
     AVG(DaysUntilNextOrder) AS AvgDays,
+    -- 999999 puts customers with only one order (their average is NULL) at the end of the ranking.
+    -- The cleaner way (NULL Functions, Task 3): ORDER BY CASE WHEN AVG(DaysUntilNextOrder) IS NULL THEN 1 ELSE 0 END, AVG(DaysUntilNextOrder)
     RANK() OVER (ORDER BY COALESCE(AVG(DaysUntilNextOrder), 999999)) AS RankAvg
 FROM (
     SELECT

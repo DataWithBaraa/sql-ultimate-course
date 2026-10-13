@@ -24,7 +24,7 @@ VALUES
 -- Incorrect column order 
 INSERT INTO customers (id, first_name, country, score)
 VALUES 
-    (8, 'Max', 'USA', NULL)
+    (8, 'USA', 'Max', NULL)
     
 -- Incorrect data type in values
 INSERT INTO customers (id, first_name, country, score)

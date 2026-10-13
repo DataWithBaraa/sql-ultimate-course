@@ -55,7 +55,7 @@ Do the following:
 	- Include comments but avoid commenting on obvious parts.	
 	- Explain each improvement to understand the reasoning behind it.
 */
--- Bad Formated Query
+-- Bad Formatted Query
 WITH CTE_Total_Sales_By_Customer AS (
     SELECT 
         c.CustomerID, 
@@ -112,7 +112,7 @@ Do the following:
 	- Provide the improved SQL query.
 	- Explain each improvement to understand the reasoning behind it.
 */
--- Query with Bar Performance
+-- Query with Bad Performance
 SELECT 
     o.OrderID,
     o.CustomerID,
@@ -151,7 +151,7 @@ Do the following:
 
 The following SQL Server Query causing this error: "Msg 8120, Level 16, State 1, Line 5"
 Do the following: 
-	- Explain the error massage.
+	- Explain the error message.
 	- Find the root cause of the issue.
 	- Suggest how to fix it.
 */
@@ -240,7 +240,7 @@ SELECT
 FROM Sales.Orders 
 GROUP BY CustomerID
 ),
-CTE_Customer_Segements AS (
+CTE_Customer_Segments AS (
 SELECT 
 	CustomerID,
 	CASE 
@@ -260,7 +260,7 @@ ccs.CustomerSegment
 FROM Sales.Customers c
 LEFT JOIN CTE_Total_Sales cts
 ON cts.CustomerID = c.CustomerID
-LEFT JOIN CTE_Customer_Segements ccs
+LEFT JOIN CTE_Customer_Segments ccs
 ON ccs.CustomerID = c.CustomerID 
 
 /* ===========================================================================
@@ -281,10 +281,10 @@ Do the following:
 I need dataset for testing the following SQL Server DDL 
 Do the following:
 	- Generate test dataset as Insert statements.
-	- Dataset should be realstic.
+	- Dataset should be realistic.
 	- Keep the dataset small.	
 	- Ensure all primary/foreign key relationships are valid (use matching IDs).
-	- Dont introduce any Null values.
+	- Don't introduce any Null values.
 
 ==============================================================================
    11. Create SQL Course
@@ -350,7 +350,8 @@ Do the following:
 
 Prepare me for a SQL exam
 Do the following:
-	- Ask common SQL interview questions.
+	- Ask common SQL exam questions.
 	- Make it interactive Practicing, you provide question and give answer.
 	- Gradually progress to advanced topics.
 	- Evaluate my answer and give me a feedback.
+*/

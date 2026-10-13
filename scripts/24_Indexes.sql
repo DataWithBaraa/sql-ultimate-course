@@ -103,11 +103,14 @@ ON Sales.DBCustomers;
 GO
 
 -- Create a Non-Clustered Columnstore Index on the FirstName column
+-- (fails if the Clustered Columnstore Index above exists: only one columnstore index per table)
 CREATE NONCLUSTERED COLUMNSTORE INDEX idx_DBCustomers_CS_FirstName
 ON Sales.DBCustomers (FirstName);
 GO
 
--- Switch context to AdventureWorksDW2022 for FactInternetSales examples */
+-- Switch context to AdventureWorksDW2022 for FactInternetSales examples
+-- AdventureWorksDW2022 is a free sample database from Microsoft. Download AdventureWorksDW2022.bak
+-- from https://learn.microsoft.com/en-us/sql/samples/adventureworks-install-configure and restore it like SalesDB.
 USE AdventureWorksDW2022;
 
 -- Create a Heap Table from FactInternetSales
@@ -137,8 +140,11 @@ ON FactInternetSales_CS;
    Unique Indexes
 ============================================================================== */
 
+-- Switch back to SalesDB for the rest of the script
+USE SalesDB;
+
 -- Attempt to create a Unique Index on the Category column in Sales.Products.
-   Note: This may fail if duplicate values exist.
+-- Note: This may fail if duplicate values exist.
 
 CREATE UNIQUE INDEX idx_Products_Category
 ON Sales.Products (Category);
@@ -180,7 +186,7 @@ WHERE Country = 'USA';
 ============================================================================== */
 
 -- List all indexes on a specific table
-sp_helpindex 'Sales.DBCustomers'
+EXEC sp_helpindex 'Sales.DBCustomers'
 
 -- Monitor Index Usage
 SELECT 
@@ -245,6 +251,7 @@ CROSS APPLY sys.dm_db_stats_properties(s.object_id, s.stats_id) AS sp
 ORDER BY sp.modification_counter DESC;
 
 -- Update statistics for a specific automatically created system statistic
+-- Note: the name is different on your machine; copy it from the StatisticName column of the query above
 UPDATE STATISTICS Sales.DBCustomers _WA_Sys_00000001_6EF57B66;
 GO
 
@@ -257,7 +264,7 @@ EXEC sp_updatestats;
 GO
 
 /* ==============================================================================
-   Fragementations
+   Fragmentations
 ============================================================================== */
 
 -- Retrieve index fragmentation statistics for the current database
@@ -275,7 +282,7 @@ INNER JOIN sys.indexes AS idx
 ORDER BY s.avg_fragmentation_in_percent DESC;
 
 -- Reorganize the index (lightweight defragmentation)
-ALTER INDEX idx_Customers_CS_Country 
+ALTER INDEX idx_Customers_Country
 ON Sales.Customers REORGANIZE;
 GO
 

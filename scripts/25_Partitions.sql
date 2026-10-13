@@ -44,8 +44,8 @@ ALTER DATABASE SalesDB ADD FILEGROUP FG_2024;
 ALTER DATABASE SalesDB ADD FILEGROUP FG_2025;
 ALTER DATABASE SalesDB ADD FILEGROUP FG_2026;
 
--- Optional: Remove a Filegroup if needed
-ALTER DATABASE SalesDB REMOVE FILEGROUP FG_2023;
+-- Optional: Remove a Filegroup if needed (kept as a comment: the next steps still use FG_2023)
+-- ALTER DATABASE SalesDB REMOVE FILEGROUP FG_2023;
 
 -- Query: List All Existing Filegroups (filter by name pattern if needed)
 SELECT *
@@ -57,6 +57,7 @@ WHERE type = 'FG'
 ============================================================================== */
 
 -- Create Files and map them to Filegroups
+-- Note: change the path to the DATA folder of your SQL Server. Find it with: SELECT physical_name FROM sys.database_files
 ALTER DATABASE SalesDB ADD FILE
 (
 	NAME = P_2023, -- Logical Name

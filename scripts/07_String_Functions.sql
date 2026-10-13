@@ -60,12 +60,12 @@ WHERE LEN(first_name)  != LEN(TRIM(first_name))
 /* ============================================================================== 
    REPLACE() - Replace or Remove old value with new one
 =============================================================================== */
--- Remove dashes (-) from a phone number
+-- Replace dashes (-) with slashes (/) in a phone number
 SELECT
 '123-456-7890' AS phone,
 REPLACE('123-456-7890', '-', '/') AS clean_phone
 
--- Replace File Extence from txt to csv
+-- Replace File Extension from txt to csv
 SELECT
 'report.txt' AS old_filename,
 REPLACE('report.txt', '.txt', '.csv') AS new_filename

@@ -84,6 +84,17 @@ SELECT
     ROUND(CAST(Sales AS FLOAT) / SUM(Sales) OVER () * 100, 2) AS PercentageOfTotal
 FROM Sales.Orders
 
+/* The query above shows each ORDER's share of the total sales.
+   For each PRODUCT's share, sum the sales per product first: */
+SELECT
+    OrderID,
+    ProductID,
+    Sales,
+    SUM(Sales) OVER (PARTITION BY ProductID) AS ProductSales,
+    SUM(Sales) OVER () AS TotalSales,
+    ROUND(CAST(SUM(Sales) OVER (PARTITION BY ProductID) AS FLOAT) / SUM(Sales) OVER () * 100, 2) AS PercentageOfTotal
+FROM Sales.Orders
+
 /* ============================================================
    SQL WINDOW AGGREGATION | AVG
    ============================================================ */

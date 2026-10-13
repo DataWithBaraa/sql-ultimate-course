@@ -154,7 +154,7 @@ SELECT c.FirstName, o.OrderID FROM Sales.Customers c RIGHT JOIN Sales.Orders o O
 SELECT c.FirstName, o.OrderID FROM Sales.Customers c LEFT JOIN Sales.Orders o ON c.CustomerID = o.CustomerID
 
 -- Worst Performance
-SELECT c.FirstName, o.OrderID FROM Sales.Customers c OUTER JOIN Sales.Orders o ON c.CustomerID = o.CustomerID
+SELECT c.FirstName, o.OrderID FROM Sales.Customers c FULL OUTER JOIN Sales.Orders o ON c.CustomerID = o.CustomerID
 
 /* ==============================================================================
    Tip 9: Use Explicit Join (ANSI Join) Instead of Implicit Join (non-ANSI Join)
@@ -334,18 +334,20 @@ SELECT CustomerID, COUNT(OrderID) AS OrderCount
 FROM Sales.Orders 
 GROUP BY CustomerID
 
-CREATE CLUSTERED COLUMNSTORE INDEX Idx_Orders_Columnstore ON Sales.Orders
+-- Sales.Orders already has a clustered index (its primary key), so create the columnstore index on a copy
+SELECT * INTO Sales.DBOrders FROM Sales.Orders
+CREATE CLUSTERED COLUMNSTORE INDEX Idx_Orders_Columnstore ON Sales.DBOrders
 
 /* ==============================================================================
    Tip 18: Pre-Aggregate Data and store it in new Table for Reporting
 ===============================================================================*/
 
-SELECT MONTH(OrderDate) OrderYear, SUM(Sales) AS TotalSales
+SELECT MONTH(OrderDate) OrderMonth, SUM(Sales) AS TotalSales
 INTO Sales.SalesSummary
 FROM Sales.Orders
 GROUP BY MONTH(OrderDate)
 
-SELECT OrderYear, TotalSales FROM Sales.SalesSummary
+SELECT OrderMonth, TotalSales FROM Sales.SalesSummary
 
 
 -- ##############################################################
@@ -419,11 +421,11 @@ Tip 23: Use NOT NULL If possible
 =============================================================================
 Tip 24: Make sure all tables have a CLUSTERED PRIMARY KEY
 =============================================================================
-Tip 25: Creeate Nonclustered Index on Foreign Key if they are frequently used
+Tip 25: Create Nonclustered Index on Foreign Key if they are frequently used
 =============================================================================
 */
--- Bad Practice 
-CREATE TABLE CustomersInfo (
+-- Bad Practice
+CREATE TABLE CustomersInfo_Bad (
     CustomerID INT,
     FirstName VARCHAR(MAX),
     LastName TEXT,
@@ -436,7 +438,7 @@ CREATE TABLE CustomersInfo (
         REFERENCES Sales.Employees(EmployeeID)
 );
 
--- Good Practice Practice 
+-- Good Practice
 CREATE TABLE CustomersInfo (
     CustomerID INT PRIMARY KEY CLUSTERED,
     FirstName VARCHAR(50) NOT NULL,

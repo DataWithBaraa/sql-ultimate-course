@@ -240,6 +240,7 @@ GROUP BY MONTH(OrderDate);
 
 /* TASK 17:
    Time Gap Analysis: Find the number of days between each order and the previous order.
+   Note: LAG is a window function, explained later in the Window Value Functions section.
 */
 SELECT
     OrderID,
