@@ -87,7 +87,7 @@ One rule to know: a backup restores on the same SQL Server version or a newer on
 
 ### Way 3: import the CSV files
 
-Right-click a database, then **Tasks > Import Flat File**, and pick one of the CSV files. The lesson shows this as a demo of how to bring any CSV into SQL Server. For the course itself, use way 1 or way 2. A CSV file cannot keep the difference between an empty text and NULL, and the NULL lessons need that difference.
+Right-click a database, then **Tasks > Import Flat File**, and pick a CSV file. The lesson shows this as a demo. For the course, use way 1 or way 2: a CSV file cannot tell an empty text from NULL, and the NULL lessons need that difference.
 
 ## 5. Docker: Mac, Linux and Windows
 
