@@ -8,9 +8,11 @@ SQL Server, SSMS and the course databases, on Windows, Mac and Linux. This guide
 |---|---|---|---|---|
 | **SQL Server Express + SSMS** (section 3) | Windows | yes | free | administrator rights on the PC, 6 GB of disk |
 | **Docker** (section 5) | Mac, Linux, Windows | the same SQL in Visual Studio Code | free | Docker Desktop, 4 GB of RAM free for SQL Server |
-| **Parallels or UTM with Windows** (section 6) | Mac | yes, SSMS inside Windows | Parallels about 100 dollars a year with a 14-day trial, UTM free; Windows needs its own licence | 16 GB of RAM, 40 GB of disk, more steps |
+| **Parallels with Windows** (section 6) | Mac | yes, SSMS inside Windows | about 100 dollars a year, with a 14-day trial; Windows needs its own licence | 16 GB of RAM, 40 GB of disk, more steps |
 
-My advice: on Windows, take the first path, it is the one in the videos. On a Mac, take Docker. It is free, light, and the SQL is the same; only the tool around it changes. Take Parallels if you want SSMS exactly as in the videos and your Mac has the memory for it.
+You do not need all of it. Windows users read sections 3 and 4. Mac users read section 5, or section 6 for Windows inside the Mac. Section 10 is for everyone, when something breaks.
+
+My advice: on Windows, take the first path, it is the one in the videos. On a Mac, take Docker: free, light, and the SQL is the same; only the tool around it changes. Take Parallels if you want SSMS exactly as in the videos and your Mac has the memory for it.
 
 ## 2. What you get in the materials
 
@@ -121,20 +123,7 @@ docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=YourStrong!Passw0rd" \
   -d mcr.microsoft.com/mssql/server:2022-latest
 ```
 
-Then connect as above and run `init-sqlserver-mydatabase.sql` and `init-sqlserver-salesdb.sql` from Visual Studio Code. If you prefer the backup files, copy them into the container first, then restore them with a query:
-
-```
-docker cp datasets/sql-server/SalesDB.bak sql:/var/opt/mssql/SalesDB.bak
-```
-
-```sql
-RESTORE DATABASE SalesDB
-FROM DISK = '/var/opt/mssql/SalesDB.bak'
-WITH MOVE 'SalesDB' TO '/var/opt/mssql/data/SalesDB.mdf',
-     MOVE 'SalesDB_log' TO '/var/opt/mssql/data/SalesDB_log.ldf';
-```
-
-For `MyDatabase` the two names are `MyDatabase` and `MyDatabase_log`. For the analytics project, `DataWarehouseAnalytics` and `DataWarehouseAnalytics_log`.
+Then connect as above and run `init-sqlserver-mydatabase.sql` and `init-sqlserver-salesdb.sql` from Visual Studio Code.
 
 ### The projects in Docker
 
@@ -149,12 +138,9 @@ sql-course/
 
 In the project scripts, replace `C:\sql\` with `/var/opt/mssql/sql/` and the backslashes with slashes. `C:\sql\dwh_project\datasets\source_crm\cust_info.csv` becomes `/var/opt/mssql/sql/dwh_project/datasets/source_crm/cust_info.csv`. With the analytics project folder in place, the one-click setup even creates the `DataWarehouseAnalytics` database for you.
 
-## 6. Windows inside your Mac: Parallels or UTM
+## 6. Windows inside your Mac: Parallels
 
-This path gives you SSMS exactly as in the videos, because you run Windows on your Mac.
-
-- **Parallels Desktop** (parallels.com) is the easy way. It downloads and installs Windows 11 for you in a few clicks. It costs about 100 dollars a year, with a 14-day free trial, and Windows needs its own licence. Give the virtual machine at least 6 GB of memory, so a Mac with 16 GB is the comfortable minimum.
-- **UTM** (mac.getutm.app) is free and does the same job with more steps. You get the Windows 11 ARM installation file yourself, with the CrystalFetch app from the same makers, and install Windows by hand. It runs slower than Parallels.
+This path gives you SSMS exactly as in the videos, because you run Windows on your Mac. **Parallels Desktop** (parallels.com) downloads and installs Windows 11 for you in a few clicks. It costs about 100 dollars a year, with a 14-day free trial, and Windows needs its own licence. Give the virtual machine at least 6 GB of memory, so a Mac with 16 GB is the comfortable minimum.
 
 Inside Windows, follow section 3 like any Windows user. SQL Server Express installs and runs on the ARM version of Windows 11, even though Microsoft does not list it as supported. Tested with SQL Server 2025 Express and SSMS 22 in Parallels on an Apple chip.
 
@@ -213,6 +199,8 @@ The index chapter uses Microsoft's sample database `AdventureWorksDW2022`. It is
 Restore it like the course backups. The 2022 files need SQL Server 2022 or newer. On SQL Server 2019, take the 2019 files from the same page: the data is the same.
 
 ## 10. When something breaks
+
+Find your message in the first column. The fix is in the last one.
 
 | What you see | Why | What to do |
 |---|---|---|
