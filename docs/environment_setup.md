@@ -16,7 +16,7 @@ My advice: on Windows, take the first path, it is the one in the videos. On a Ma
 
 ## 2. What you get in the materials
 
-Download the course materials once, from the lesson or from [GitHub](https://github.com/DataWithBaraa/sql-ultimate-course). You get this folder:
+Download the course materials once. You get this folder:
 
 ```
 sql-ultimate-course/
