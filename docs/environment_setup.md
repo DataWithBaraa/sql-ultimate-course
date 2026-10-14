@@ -1,22 +1,22 @@
 # Environment Setup
 
-SQL Server, SSMS and the course databases, on Windows, Mac and Linux. This guide follows the Environment Setup lesson step by step. It adds what the lesson could not cover: the newer screens, the other ways to run SQL Server, and the common errors with their fixes.
+SQL Server, SSMS and the course databases, on Windows, Mac and Linux. The guide follows the Environment Setup lesson. It adds what the lesson could not show: the newer screens, the other ways to run SQL Server, and the fixes for the common errors.
 
 ## 1. Choose your setup
 
-| Path | For | Same screens as the videos | Cost | What it needs |
-|---|---|---|---|---|
-| **SQL Server Express + SSMS** (section 3) | Windows | yes | free | administrator rights on the PC, 6 GB of disk |
-| **Docker** (section 5) | Mac, Linux, Windows | the same SQL in Visual Studio Code | free | Docker Desktop, 4 GB of RAM free for SQL Server |
-| **Parallels with Windows** (section 6) | Mac | yes, SSMS inside Windows | about 100 dollars a year, with a 14-day trial; Windows needs its own licence | 16 GB of RAM, 40 GB of disk, more steps |
+| Path | For | Same screens as the videos | Cost |
+|---|---|---|---|
+| **SQL Server Express + SSMS**, section 3 | Windows | yes | free |
+| **Docker**, section 5 | Mac, Linux, Windows | the same SQL, in Visual Studio Code | free |
+| **Parallels with Windows**, section 6 | Mac | yes, SSMS inside Windows | about 100 dollars a year, 14-day trial |
 
-You do not need all of it. Windows users read sections 3 and 4. Mac users read section 5, or section 6 for Windows inside the Mac. Section 10 is for everyone, when something breaks.
+Read only your path. Windows: sections 3 and 4. Mac: section 5, or section 6 for Windows inside the Mac. Everyone: section 10 when something breaks.
 
-My advice: on Windows, take the first path, it is the one in the videos. On a Mac, take Docker: free, light, and the SQL is the same; only the tool around it changes. Take Parallels if you want SSMS exactly as in the videos and your Mac has the memory for it.
+My advice: on Windows, take the first path, it is the one in the videos. On a Mac, take Docker: free, light, and the SQL is the same. Take Parallels if you want SSMS exactly as in the videos and your Mac has 16 GB of memory.
 
 ## 2. What you get in the materials
 
-Download the course materials once. You get this folder:
+Download the course materials once, from the lesson or from [GitHub](https://github.com/DataWithBaraa/sql-ultimate-course). You get this folder:
 
 ```
 sql-ultimate-course/
@@ -26,7 +26,7 @@ sql-ultimate-course/
 │   ├── mysql/          the same two databases for MySQL
 │   ├── postgres/       the same two databases for PostgreSQL
 │   └── *.csv           the five SalesDB tables as CSV files
-├── docker/             the one-command setup for Docker (section 5)
+├── docker/             the one-click setup for Docker (section 5)
 ├── docs/               the slides of every chapter as PDF
 └── scripts/            every query from the course, one file per chapter
 ```
@@ -42,28 +42,29 @@ Every script in `scripts/` starts with a `USE` line, so it tells you which datab
 
 ## 3. Windows: install SQL Server and SSMS
 
-The course runs on SQL Server Express, the free edition. The videos show SQL Server 2022. The download page now offers SQL Server 2025 Express, and it works the same for the course.
+The course runs on SQL Server Express, the free edition. The videos show SQL Server 2022. The download page now offers 2025, and it works the same.
 
-1. Open the SQL Server downloads page at microsoft.com, scroll to the **Express** card, and click **Download now**.
-2. Run the downloaded file and choose **Basic**. Accept the licence and click **Install**. The installer downloads SQL Server, so this takes a few minutes.
-3. The last screen shows your connection details. The server name is `localhost\SQLEXPRESS`. Keep it, you need it in a minute. The installer also made your Windows account the administrator of this SQL Server.
-4. Download **SQL Server Management Studio** (SSMS) from the same page, under "SQL tools", or search for "download SSMS". Run it and keep the default options. SSMS 21 and newer install through the Visual Studio Installer, and it may offer extra components. You need none of them.
+1. Open the [SQL Server downloads page](https://www.microsoft.com/en-us/sql-server/sql-server-downloads), scroll to the **Express** card, and click **Download now**.
+2. Run the downloaded file and choose **Basic**. Accept the licence and click **Install**.
+3. The last screen shows your server name: `localhost\SQLEXPRESS`. Keep it, you need it in a minute. Your Windows account is now the administrator of this SQL Server.
+4. Download [SQL Server Management Studio](https://aka.ms/ssms/22/release/vs_SSMS.exe) (SSMS) and install it with the default options. The installer may offer extra components. You need none of them.
 
-![The Express card on the downloads page](images/setup/01-sql-downloads-express.png)
+![Step 1: the Express card](images/setup/01-sql-downloads-express.png)
+![Step 2: choose Basic](images/setup/02-installer-basic.png)
+![Step 3: the last screen with the server name](images/setup/03-installer-done.png)
 
 ### Connect for the first time
 
 SSMS 21 and newer look different from the video.
 
-- At the first start, SSMS asks you to sign in with a Microsoft or GitHub account. You do not need an account. Click **Skip and add accounts later** under the buttons.
-- A **Connect** window opens. Type the server name `localhost\SQLEXPRESS`. If the field is empty, that is normal, just type it.
-- Authentication: **Windows Authentication**.
-- Tick **Trust Server Certificate**. Newer SSMS versions encrypt every connection, and without this box you get a certificate error.
-- Click **Connect**. On the left, in the Object Explorer, you see your server.
+1. At the first start, SSMS asks you to sign in. You do not need an account: click **Skip and add accounts later** under the buttons.
+2. In the **Connect** window, type the server name `localhost\SQLEXPRESS`. If the field is empty, that is normal.
+3. Authentication: **Windows Authentication**.
+4. Tick **Trust Server Certificate**. Without it you get a certificate error.
+5. Click **Connect**. Your server appears on the left, in the Object Explorer.
 
-![The sign-in screen of SSMS 22, with the skip link under the buttons](images/setup/04-ssms-sign-in.png)
-
-![The Connect window, filled in](images/setup/05-ssms-connect.png)
+![Step 1: the skip link under the buttons](images/setup/04-ssms-sign-in.png)
+![Steps 2 to 4: the Connect window, filled in](images/setup/05-ssms-connect.png)
 
 ## 4. Create the databases
 
@@ -72,46 +73,45 @@ The lesson shows three ways. The first one is the easiest and works on every ver
 ### Way 1: run the scripts
 
 1. In SSMS, click **File > Open > File** and open `datasets/sql-server/init-sqlserver-mydatabase.sql`.
-2. Click **Execute** (or press F5). Refresh the Databases folder, and `MyDatabase` is there.
+2. Click **Execute**, or press F5. Refresh the Databases folder: `MyDatabase` is there.
 3. Do the same with `init-sqlserver-salesdb.sql`. Before you run it, make sure the database dropdown in the toolbar says `master`.
 
-Use only the scripts in `sql-server/`. The scripts in `mysql/` and `postgres/` are for other database engines, and SSMS cannot run them.
+Use only the scripts in `sql-server/`. The scripts in `mysql/` and `postgres/` are for other engines, and SSMS cannot run them.
+
+![Way 1 done: both databases in the Object Explorer](images/setup/06-ssms-object-explorer.png)
 
 ### Way 2: restore the backups
 
-1. Copy `MyDatabase.bak` and `SalesDB.bak` into the Backup folder of your SQL Server. For SQL Server 2022 Express it is `C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\Backup`. For SQL Server 2025 the folder starts with `MSSQL17`. SQL Server cannot read your Downloads folder, so this copy step matters.
+1. Copy `MyDatabase.bak` and `SalesDB.bak` into the Backup folder of your SQL Server: `C:\Program Files\Microsoft SQL Server\MSSQL17.SQLEXPRESS\MSSQL\Backup` for SQL Server 2025, `MSSQL16` for 2022. SQL Server cannot read your Downloads folder, so this copy matters.
 2. In the Object Explorer, right-click **Databases > Restore Database**.
 3. Choose **Device**, click the three dots, click **Add**, pick the backup file, and click **OK** twice.
+
+![Way 2: the Restore Database window](images/setup/08-ssms-restore.png)
 
 One rule to know: a backup restores on the same SQL Server version or a newer one, never on an older one. The course backups come from SQL Server 2022. On SQL Server 2019 or older, use way 1.
 
 ### Way 3: import the CSV files
 
-Right-click a database, then **Tasks > Import Flat File**, and pick a CSV file. The lesson shows this as a demo. For the course, use way 1 or way 2: a CSV file cannot tell an empty text from NULL, and the NULL lessons need that difference.
+Right-click a database, then **Tasks > Import Flat File**, and pick a CSV file. The lesson shows this as a demo. For the course, use way 1 or way 2. A CSV file cannot tell an empty text from NULL, and the NULL lessons need that difference.
 
 ## 5. Docker: Mac, Linux and Windows
 
-SQL Server does not install on macOS, and SSMS is Windows only. With Docker, SQL Server runs in a small Linux container on any computer, and you write your queries in Visual Studio Code. The SQL is the same. The course materials bring a one-command setup for it.
+SQL Server does not install on macOS, and SSMS is Windows only. With Docker, SQL Server runs in a small Linux container on any computer, and you write your queries in Visual Studio Code. The SQL is the same.
 
-### Install
+### Install, once
 
-1. Install **Docker Desktop** from docker.com. On a Mac, take the Apple chip version. Start it once and leave it running.
-2. On a Mac, open the Docker Desktop settings, **General**. Set the Virtual Machine Manager to **Apple Virtualization framework** and turn on **Use Rosetta for x86_64/amd64 emulation on Apple Silicon**. SQL Server ships for Intel chips only, and this setting lets your Mac run it.
-3. Install **Visual Studio Code** and, inside it, the extension **SQL Server (mssql)** by Microsoft. This is Microsoft's tool for Mac and Linux. Azure Data Studio was the old one, and Microsoft retired it in February 2026.
+1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/). On a Mac, take the Apple chip version. Start it and leave it running.
+2. On a Mac: Docker Desktop settings, **General**. Set the Virtual Machine Manager to **Apple Virtualization framework** and turn on **Use Rosetta for x86_64/amd64 emulation on Apple Silicon**. SQL Server ships for Intel chips only, and this setting lets your Mac run it.
+3. Install [Visual Studio Code](https://code.visualstudio.com/download) and, inside it, the extension [SQL Server (mssql)](https://marketplace.visualstudio.com/items?itemName=ms-mssql.mssql) by Microsoft. It replaces Azure Data Studio, which Microsoft retired in February 2026.
 
 ### Start the course databases: one click
 
-In the course materials, open the folder `docker` and double-click `start.command` on a Mac or `start.bat` on Windows. On Linux, run `docker compose up -d --build` in that folder. The first start downloads SQL Server, about 1.5 GB, and creates `MyDatabase` and `SalesDB` from the course scripts. After that, a container called `sql-course` sits in Docker Desktop, and you start it from there whenever you want to practice.
+1. In the course materials, open the folder `docker` and double-click `start.command` on a Mac or `start.bat` on Windows. On Linux, run `docker compose up -d --build` in that folder.
+2. Wait a minute. The first start downloads SQL Server and creates `MyDatabase` and `SalesDB` from the course scripts. From then on, a container called `sql-course` sits in Docker Desktop, and you start it from there.
+3. In Visual Studio Code, open the SQL Server extension on the left and add a connection. Server name `localhost`, port `1433`, tick **Trust server certificate**, authentication **SQL Login**, user `sa`, password `SqlCourse!2026`.
+4. Open a script from `scripts/`, run it against the connection, and you are in the course.
 
-Then connect in Visual Studio Code. Open the SQL Server extension on the left and add a connection:
-
-- Server name `localhost`, port `1433` (in SSMS this is one field: `localhost,1433`)
-- Tick **Trust server certificate**
-- Authentication type **SQL Login**, user `sa`, password `SqlCourse!2026`
-
-That is all. Open a script from `scripts/`, run it against the connection, and you are in the course.
-
-![The connection form of the SQL Server extension in Visual Studio Code](images/setup/10-vscode-connection.png)
+![Step 3: the connection form, filled in](images/setup/10-vscode-connection.png)
 
 ### The same by hand
 
@@ -123,11 +123,11 @@ docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=YourStrong!Passw0rd" \
   -d mcr.microsoft.com/mssql/server:2022-latest
 ```
 
-Then connect as above and run `init-sqlserver-mydatabase.sql` and `init-sqlserver-salesdb.sql` from Visual Studio Code.
+Then connect as above and run `init-sqlserver-mydatabase.sql` and `init-sqlserver-salesdb.sql` from Visual Studio Code. Microsoft's own guide for this: [SQL Server in a Docker container](https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker).
 
 ### The projects in Docker
 
-The two projects load CSV files with `BULK INSERT`, and the scripts point to Windows paths. The one-click setup solves this for you. Unzip the three packages next to each other, like this. Then the project folders are visible inside the container under `/var/opt/mssql/sql/`, the same layout as `C:\sql\` in the videos.
+The two projects load CSV files with `BULK INSERT`, and the scripts point to Windows paths. The one-click setup solves this. Unzip the three packages next to each other, like this. Then the project folders are visible inside the container under `/var/opt/mssql/sql/`, the same layout as `C:\sql\` in the videos.
 
 ```
 sql-course/
@@ -136,13 +136,17 @@ sql-course/
 └── sql-data-analytics-project/
 ```
 
-In the project scripts, replace `C:\sql\` with `/var/opt/mssql/sql/` and the backslashes with slashes. `C:\sql\dwh_project\datasets\source_crm\cust_info.csv` becomes `/var/opt/mssql/sql/dwh_project/datasets/source_crm/cust_info.csv`. With the analytics project folder in place, the one-click setup even creates the `DataWarehouseAnalytics` database for you.
+In the project scripts, replace `C:\sql\` with `/var/opt/mssql/sql/` and the backslashes with slashes. `C:\sql\dwh_project\datasets\source_crm\cust_info.csv` becomes `/var/opt/mssql/sql/dwh_project/datasets/source_crm/cust_info.csv`. With the analytics project folder in place, the one-click setup creates the `DataWarehouseAnalytics` database for you too.
 
 ## 6. Windows inside your Mac: Parallels
 
-This path gives you SSMS exactly as in the videos, because you run Windows on your Mac. **Parallels Desktop** (parallels.com) downloads and installs Windows 11 for you in a few clicks. It costs about 100 dollars a year, with a 14-day free trial, and Windows needs its own licence. Give the virtual machine at least 6 GB of memory, so a Mac with 16 GB is the comfortable minimum.
+This path gives you SSMS exactly as in the videos, because you run Windows on your Mac.
 
-Inside Windows, follow section 3 like any Windows user. SQL Server Express installs and runs on the ARM version of Windows 11, even though Microsoft does not list it as supported. Tested with SQL Server 2025 Express and SSMS 22 in Parallels on an Apple chip.
+1. Install [Parallels Desktop](https://www.parallels.com/products/desktop/). It downloads and installs Windows 11 for you in a few clicks. It costs about 100 dollars a year, with a 14-day free trial, and Windows needs its own licence.
+2. Give the virtual machine at least 6 GB of memory. A Mac with 16 GB is the comfortable minimum.
+3. Inside Windows, follow section 3 like any Windows user.
+
+SQL Server Express installs and runs on the ARM version of Windows 11, even though Microsoft does not list it as supported. Tested with SQL Server 2025 Express and SSMS 22 in Parallels on an Apple chip.
 
 ## 7. MySQL and PostgreSQL
 
@@ -150,10 +154,17 @@ The course is recorded on SQL Server, and that is the engine I recommend: every 
 
 ### Install and load
 
-| Engine | Download | Tool to write queries | Load the course databases |
-|---|---|---|---|
-| MySQL | MySQL Community Server, from dev.mysql.com. The MySQL Installer on Windows, the DMG on a Mac | MySQL Workbench, from the same page | In Workbench: **File > Open SQL Script**, open `datasets/mysql/init-mysql-mydatabase.sql`, run it with the lightning icon. Then the same with `init-mysql-salesdb.sql` |
-| PostgreSQL | The EDB installer from postgresql.org, for Windows and Mac. On a Mac, Postgres.app is the lighter choice | pgAdmin, which comes with the EDB installer. Or DBeaver, or Postico on a Mac | Open `datasets/postgres/init-postgres-mydatabase.sql` in the query tool while connected to the `postgres` database, and run the lines up to `CREATE DATABASE`. Then connect to the new database and run the rest. The same with `init-postgres-salesdb.sql` |
+**MySQL**
+
+1. Install [MySQL Community Server](https://dev.mysql.com/downloads/mysql/) and [MySQL Workbench](https://dev.mysql.com/downloads/workbench/). On Windows, the [MySQL Installer](https://dev.mysql.com/downloads/installer/) brings both.
+2. In Workbench: **File > Open SQL Script**, open `datasets/mysql/init-mysql-mydatabase.sql`, and run it with the lightning icon.
+3. The same with `init-mysql-salesdb.sql`.
+
+**PostgreSQL**
+
+1. Install [PostgreSQL](https://www.postgresql.org/download/) with the EDB installer, which brings pgAdmin. On a Mac, [Postgres.app](https://postgresapp.com/) is the lighter choice, with [pgAdmin](https://www.pgadmin.org/download/) or [DBeaver](https://dbeaver.io/download/) as the query tool.
+2. Open `datasets/postgres/init-postgres-mydatabase.sql` in the query tool while connected to the `postgres` database, and run the lines up to `CREATE DATABASE`.
+3. Connect to the new database and run the rest. The same with `init-postgres-salesdb.sql`.
 
 Both engines keep the table names in lower case: `customers`, `orders`, `orders_archive` in MySQL, and `sales.customers` in PostgreSQL.
 
@@ -188,19 +199,32 @@ The chapters on stored procedures, triggers, indexes, partitions, execution plan
 
 ## 8. The project datasets
 
-**Data Warehouse project:** the six CSV files sit in `datasets/source_crm` and `datasets/source_erp`. The bronze loader reads them from `C:\sql\dwh_project\datasets\`, the folder used in the videos. Put the folder there, or change the six paths in `proc_load_bronze.sql`. The folder must be readable by the SQL Server service, so a folder directly on `C:\` works, and Downloads often does not.
+**Data Warehouse project**
 
-**Data Analytics project:** restore `DataWarehouseAnalytics.bak` the same way as in section 4, or run `00_init_database.sql`, which loads the gold tables from `datasets/csv-files/`. If you built the data warehouse project, you already have the gold layer.
+1. The six CSV files sit in `datasets/source_crm` and `datasets/source_erp`.
+2. The bronze loader reads them from `C:\sql\dwh_project\datasets\`, the folder used in the videos. Put the folder there, or change the six paths in `proc_load_bronze.sql`.
+3. The folder must be readable by the SQL Server service. A folder directly on `C:\` works. Downloads often does not.
+
+**Data Analytics project**
+
+1. Restore `DataWarehouseAnalytics.bak` the same way as in section 4, or run `00_init_database.sql`, which loads the gold tables from `datasets/csv-files/`.
+2. If you built the data warehouse project, you already have the gold layer.
 
 ## 9. AdventureWorks
 
-The index chapter uses Microsoft's sample database `AdventureWorksDW2022`. It is not part of the course materials because of its size. Get it from Microsoft: search for "AdventureWorks sample databases", open the Microsoft Learn page, and download `AdventureWorksDW2022.bak`, the data warehouse with `FactInternetSales`. `AdventureWorks2022.bak` is the other, operational database, and it does not have that table.
+The index chapter uses Microsoft's sample database `AdventureWorksDW2022`. It is not part of the course materials, so get it from Microsoft:
 
-Restore it like the course backups. The 2022 files need SQL Server 2022 or newer. On SQL Server 2019, take the 2019 files from the same page: the data is the same.
+1. Open the [AdventureWorks sample databases](https://learn.microsoft.com/en-us/sql/samples/adventureworks-install-configure) page at Microsoft Learn.
+2. Download `AdventureWorksDW2022.bak`, the data warehouse with `FactInternetSales`. `AdventureWorks2022.bak` is the other, operational database, and it does not have that table.
+3. Restore it like the course backups, section 4, way 2.
+
+The 2022 files need SQL Server 2022 or newer. On SQL Server 2019, take the 2019 files from the same page: the data is the same.
 
 ## 10. When something breaks
 
 Find your message in the first column. The fix is in the last one.
+
+**Install and connect**
 
 | What you see | Why | What to do |
 |---|---|---|
@@ -208,19 +232,29 @@ Find your message in the first column. The fix is in the last one.
 | The server name field is empty | normal | Type `localhost\SQLEXPRESS` |
 | Error 26, "Error Locating Server/Instance Specified" | SQL Server is not running, or the name is wrong | Open **Services**, start "SQL Server (SQLEXPRESS)". If you installed the Developer edition, the name is `localhost` without the instance |
 | "The certificate chain was issued by an authority that is not trusted" | SSMS encrypts the connection | Tick **Trust Server Certificate** |
+| Installer: "Wait on the Database Engine recovery handle failed" | SQL Server could not start during setup | Uninstall SQL Server, restart Windows, install again. If it fails again, the real reason is in the ERRORLOG file under `C:\Program Files\Microsoft SQL Server\MSSQL17.SQLEXPRESS\MSSQL\Log` |
+| SQL Server 2025 setup stops at the rules check | installer problem on some machines | Install SQL Server 2022 Express instead. The course runs on it |
+| Your laptop does not let you install anything | no administrator rights | SQL Server needs them. Ask IT, or use a personal computer |
+
+**Databases and files**
+
+| What you see | Why | What to do |
+|---|---|---|
 | Msg 262, "CREATE DATABASE permission denied in database 'master'" | your Windows login is not an administrator of this SQL Server. Someone else installed it, often IT | Log in with the Windows account that installed SQL Server, or ask an administrator to add your login to the **sysadmin** role (Security > Logins > Properties > Server Roles) |
 | Msg 911, "Database 'MyDatabase' does not exist", or many syntax errors with backticks | you ran the MySQL or PostgreSQL script in SSMS | Use the scripts in `datasets/sql-server/` |
-| The restore window does not show the .bak file, or "Access is denied" | SQL Server cannot read Downloads | Copy the file into the Backup folder from section 4 |
-| Msg 3169, the backup "is incompatible with this server" | your SQL Server is older than 2022 | Run the scripts (way 1), or install SQL Server 2022 or 2025 Express |
+| The restore window does not show the .bak file, or "Access is denied" | SQL Server cannot read Downloads | Copy the file into the Backup folder, section 4, way 2 |
+| Msg 3169, the backup "is incompatible with this server" | your SQL Server is older than 2022 | Run the scripts, way 1, or install SQL Server 2022 or 2025 Express |
 | "'DATETRUNC' is not a recognized built-in function name" | SQL Server older than 2022 | Install SQL Server 2022 or newer. The course uses functions from 2022 |
 | Msg 4860, "Cannot bulk load. The file does not exist or you don't have file access rights" | the path in the script is not your folder, or SQL Server cannot read it | Put the datasets folder on `C:\` and fix the path in the script |
-| Installer: "Wait on the Database Engine recovery handle failed" | SQL Server could not start during setup | Uninstall SQL Server, restart Windows, install again. If it fails again, the real reason is in the ERRORLOG file under `C:\Program Files\Microsoft SQL Server\MSSQL17.SQLEXPRESS\MSSQL\Log` (MSSQL16 for 2022) |
-| SQL Server 2025 setup stops at the rules check | installer problem on some machines | Install SQL Server 2022 Express instead. The course runs on it |
 | A .sql file opens in Notepad, or the .bak shows as text in the browser | the file is not linked to SSMS | Open SSMS first, then **File > Open > File**. For downloads, right-click the link and choose **Save link as** |
-| Docker: "Cannot connect to the Docker daemon" | Docker Desktop is not running | Start Docker Desktop, wait for the whale icon, try again |
-| Docker: "no matching manifest for linux/arm64" | the Intel image needs emulation | Add `--platform linux/amd64` to the command and turn on Rosetta in Docker Desktop |
-| Docker: "port is already allocated" | another SQL Server listens on 1433 | Stop it, or change the first `1433` in `docker-compose.yml` to `1434` and connect to `localhost,1434` |
-| Docker: the container stops right after the start | the password breaks the rules | At least 8 characters with upper case, lower case, a number and a symbol |
-| Your laptop does not let you install anything | no administrator rights | SQL Server needs them. Ask IT, or use a personal computer |
+
+**Docker**
+
+| What you see | Why | What to do |
+|---|---|---|
+| "Cannot connect to the Docker daemon" | Docker Desktop is not running | Start Docker Desktop, wait for the whale icon, try again |
+| "no matching manifest for linux/arm64" | the Intel image needs emulation | Add `--platform linux/amd64` to the command and turn on Rosetta in Docker Desktop |
+| "port is already allocated" | another SQL Server listens on 1433 | Stop it, or change the first `1433` in `docker-compose.yml` to `1434` and connect to port `1434` |
+| The container stops right after the start | the password breaks the rules | At least 8 characters with upper case, lower case, a number and a symbol |
 
 If you are still stuck, write in the Q&A with the exact error message and a screenshot of the window. Then I can see what happened.
