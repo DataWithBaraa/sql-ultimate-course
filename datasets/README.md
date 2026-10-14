@@ -17,6 +17,10 @@ Every script in `scripts/` starts with a `USE` line, so it tells you which datab
 
 The CSV files are the five `SalesDB` tables: `Customers.csv`, `Employees.csv`, `Products.csv`, `Orders.csv`, `OrdersArchive.csv`. They hold the same rows as the scripts and the backups.
 
+## Docker
+
+The folder `docker/` starts SQL Server with both databases in one command, on Mac, Linux and Windows. See `docker/README.md`.
+
 ## MySQL and PostgreSQL
 
 `mysql/` and `postgres/` hold the same two databases for MySQL and PostgreSQL. Run them in a MySQL or PostgreSQL tool, never in SQL Server Management Studio. The course is recorded on SQL Server, so some functions and some syntax differ on other engines.
