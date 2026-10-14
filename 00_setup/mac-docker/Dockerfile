@@ -3,9 +3,9 @@ FROM mcr.microsoft.com/mssql/server:2022-latest
 
 USER root
 RUN mkdir -p /opt/sql-course/init /var/opt/mssql/sql
-COPY datasets/sql-server/init-sqlserver-mydatabase.sql /opt/sql-course/init/01-mydatabase.sql
-COPY datasets/sql-server/init-sqlserver-salesdb.sql    /opt/sql-course/init/02-salesdb.sql
-COPY docker/entrypoint.sh /opt/sql-course/entrypoint.sh
+COPY 01_datasets/00_sql-server/init-sqlserver-mydatabase.sql /opt/sql-course/init/01-mydatabase.sql
+COPY 01_datasets/00_sql-server/init-sqlserver-salesdb.sql    /opt/sql-course/init/02-salesdb.sql
+COPY 00_setup/mac-docker/entrypoint.sh /opt/sql-course/entrypoint.sh
 RUN chmod +x /opt/sql-course/entrypoint.sh && chown -R mssql:root /opt/sql-course /var/opt/mssql/sql
 USER mssql
 

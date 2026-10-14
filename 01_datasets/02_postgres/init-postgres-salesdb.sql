@@ -2,7 +2,7 @@
 -- PostgreSQL Database Creation and Table Setup Script
 -- =============================================================
 -- RUN IN: a PostgreSQL tool (psql, pgAdmin, DBeaver, Postico).
--- Not for SQL Server Management Studio: for SQL Server use datasets/sql-server/.
+-- Not for SQL Server Management Studio: for SQL Server use 01_datasets/00_sql-server/.
 --
 -- WARNING:
 -- This script assumes you are manually connected to the 'postgres' database

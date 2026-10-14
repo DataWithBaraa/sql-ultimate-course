@@ -1,13 +1,13 @@
-# The course databases in one command: `docker compose up -d` inside this folder.
+# The course databases in one click: double-click start.command on a Mac.
 # SQL Server 2022 starts, and on the first start the course's own init scripts create
-# MyDatabase and SalesDB. If the two project folders sit next to this repository,
+# MyDatabase and SalesDB. If the two project folders sit next to the course folder,
 # they are visible inside the container under /var/opt/mssql/sql/, the same layout
 # as C:\sql\ in the videos, and the analytics database is created too.
 services:
   sql:
     build:
-      context: ..
-      dockerfile: docker/Dockerfile
+      context: ../..
+      dockerfile: 00_setup/mac-docker/Dockerfile
     image: sql-course:2022
     platform: linux/amd64
     container_name: sql-course
@@ -18,7 +18,7 @@ services:
       - "1433:1433"
     volumes:
       - sql-course-data:/var/opt/mssql
-      - ../../sql-data-warehouse-project:/var/opt/mssql/sql/dwh_project
-      - ../../sql-data-analytics-project:/var/opt/mssql/sql/sql-data-analytics-project
+      - ../../../sql-data-warehouse-project:/var/opt/mssql/sql/dwh_project
+      - ../../../sql-data-analytics-project:/var/opt/mssql/sql/sql-data-analytics-project
 volumes:
   sql-course-data:

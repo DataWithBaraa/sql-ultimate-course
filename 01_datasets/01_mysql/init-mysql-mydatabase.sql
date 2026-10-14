@@ -1,21 +1,25 @@
--- =============================================================
--- PostgreSQL Database Creation and Table Setup Script
--- =============================================================
--- RUN IN: a PostgreSQL tool (psql, pgAdmin, DBeaver, Postico).
--- Not for SQL Server Management Studio: for SQL Server use datasets/sql-server/.
---
--- WARNING:
--- This script assumes you are connected to the 'postgres' database
--- and have the privileges to drop/create databases.
--- It drops the 'MyDatabase' database if it exists.
+/*
+=============================================================
+Database Creation and Table Setup Script (MySQL Version)
+=============================================================
+RUN IN: MySQL Workbench (or any MySQL client).
+    Not for SQL Server Management Studio: for SQL Server use 01_datasets/00_sql-server/.
 
--- DROP AND CREATE DATABASE
-DROP DATABASE IF EXISTS "MyDatabase";
-CREATE DATABASE "MyDatabase";
+Script Purpose:
+    This script creates a new MySQL database named 'MyDatabase'. 
+    If the database already exists, it is dropped to ensure a clean setup. 
+    The script then creates two tables: 'customers' and 'orders'
+    with their respective schemas, and populates them with sample data.
+    
+WARNING:
+    Running this script will drop the entire 'MyDatabase' database if it exists, 
+    permanently deleting all data within it. Proceed with caution and ensure you 
+    have proper backups before executing this script.
+*/
 
--- Connect to the new database "MyDatabase" (manual step in most PostgreSQL tools)
-
--- Now switch to the "MyDatabase" database to execute the following
+DROP DATABASE IF EXISTS MyDatabase;
+CREATE DATABASE MyDatabase;
+USE MyDatabase;
 
 -- ======================================================
 -- Table: customers
@@ -24,10 +28,10 @@ DROP TABLE IF EXISTS customers;
 
 CREATE TABLE customers (
     id INT NOT NULL,
-    first_name VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50),
     country VARCHAR(50),
     score INT,
-    CONSTRAINT pk_customers PRIMARY KEY (id)
+    PRIMARY KEY (id)
 );
 
 -- Insert customers data
@@ -48,7 +52,7 @@ CREATE TABLE orders (
     customer_id INT NOT NULL,
     order_date DATE,
     sales INT,
-    CONSTRAINT pk_orders PRIMARY KEY (order_id)
+    PRIMARY KEY (order_id)
 );
 
 -- Insert orders data

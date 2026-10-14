@@ -9,5 +9,5 @@ fi
 docker compose up -d --build
 echo
 echo "SQL Server is starting. The first start creates the databases, give it one minute."
-echo "Connect in Visual Studio Code: server localhost,1433  user sa  password SqlCourse!2026"
+echo "Connect in Visual Studio Code: server localhost, port 1433, user sa, password SqlCourse!2026"
 read -k 1 -s "?Press any key to close."
