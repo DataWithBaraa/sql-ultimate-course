@@ -8,10 +8,14 @@ The materials of the SQL course: the databases, every query from the lessons, an
 
 ```
 sql-ultimate-course/
-├── 00_setup/       the setup guide, and the one-click Docker setup for Mac
-├── 01_datasets/    the two course databases: SQL Server, MySQL, PostgreSQL, and the CSV files
-├── 02_docs/        the slides of every chapter as PDF
-└── 03_scripts/     every query from the course, one file per chapter
+├── 00_setup/            the setup guide, and the one-click Docker start for Mac
+├── 01_datasets/         the two course databases
+│   ├── 00_sql-server/   for SQL Server, the one in the videos
+│   ├── 01_mysql/        the same databases for MySQL
+│   ├── 02_postgres/     the same databases for PostgreSQL
+│   └── 03_csv-files/    SalesDB as CSV files, for the import lesson
+├── 02_docs/             the slides of every chapter, as PDF
+└── 03_scripts/          every query of the course, one file per chapter
 ```
 
 The course uses two databases: `MyDatabase` for the first chapters, `SalesDB` for the rest. Every script starts with a `USE` line that names the one it needs.
