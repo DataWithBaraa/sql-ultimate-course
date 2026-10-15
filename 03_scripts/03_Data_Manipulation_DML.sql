@@ -51,6 +51,16 @@ VALUES
     (10, 'Sahra')
 
 /* #2 Method: INSERT DATA USING SELECT - Moving Data From One Table to Another */
+-- The DDL lesson changed the table persons and dropped it: create it again as it was
+DROP TABLE IF EXISTS persons;
+CREATE TABLE persons (
+    id INT NOT NULL,
+    person_name VARCHAR(50) NOT NULL,
+    birth_date DATE,
+    phone VARCHAR(15) NOT NULL,
+    CONSTRAINT pk_persons PRIMARY KEY (id)
+);
+
 -- Copy data from the 'customers' table into 'persons'
 INSERT INTO persons (id, person_name, birth_date, phone)
 SELECT

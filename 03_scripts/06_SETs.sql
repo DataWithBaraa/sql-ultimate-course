@@ -18,8 +18,8 @@ USE SalesDB;
    1. RULES OF SET OPERATIONS
 ============================================================================== */
 
-/* RULE: Data Types
-   The data types of columns in each query should match.
+/* RULE: Number of Columns
+   The number of columns in each query must be the same.
 */
 SELECT
     FirstName,

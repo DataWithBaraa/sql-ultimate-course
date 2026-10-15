@@ -96,7 +96,7 @@ WITH Series AS (
 )
 -- Main Query
 SELECT *
-FROM Series
+FROM Series;
 
 /* TASK 3:
    Generate a sequence of numbers from 1 to 1000.

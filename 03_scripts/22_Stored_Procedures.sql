@@ -36,6 +36,7 @@ GO
 
 --Execute Stored Procedure
 EXEC GetCustomerSummary;
+GO
 
 /* ==============================================================================
    2. PARAMETERS IN STORED PROCEDURE
@@ -57,6 +58,7 @@ GO
 EXEC GetCustomerSummary @Country = 'Germany';
 EXEC GetCustomerSummary @Country = 'USA';
 EXEC GetCustomerSummary;
+GO
 
 /* ==============================================================================
    3. MULTIPLE QUERIES IN STORED PROCEDURE
@@ -87,6 +89,7 @@ GO
 EXEC GetCustomerSummary @Country = 'Germany';
 EXEC GetCustomerSummary @Country = 'USA';
 EXEC GetCustomerSummary;
+GO
 
 /* ==============================================================================
    4. VARIABLES IN STORED PROCEDURE
@@ -123,6 +126,7 @@ GO
 EXEC GetCustomerSummary @Country = 'Germany';
 EXEC GetCustomerSummary @Country = 'USA';
 EXEC GetCustomerSummary;
+GO
 
 /* ==============================================================================
    5. CONTROL FLOW IF/ELSE IN STORED PROCEDURE
@@ -176,6 +180,7 @@ GO
 EXEC GetCustomerSummary @Country = 'Germany';
 EXEC GetCustomerSummary @Country = 'USA';
 EXEC GetCustomerSummary;
+GO
 
 /* ==============================================================================
    6. ERROR HANDLING TRY/CATCH IN STORED PROCEDURE

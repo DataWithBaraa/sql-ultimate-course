@@ -168,7 +168,7 @@ SELECT
 FROM Sales.Customers C
 LEFT JOIN Sales.Orders O
 ON C.CustomerID = O.CustomerID
-GROUP BY C.CustomerID, C.Country
+GROUP BY C.CustomerID, C.Country;
 
 /* ==============================================================================
    6. Explain the Result
@@ -192,7 +192,7 @@ WITH Series AS (
 )
 -- Main Query
 SELECT *
-FROM Series
+FROM Series;
 
 /* ==============================================================================
    7. Styling & Formatting
@@ -222,7 +222,7 @@ cts.TotalSales, ccs.CustomerSegment
 FROM sales.customers c
 left join CTE_Total_Sales cts
 ON cts.CustomerID = c.CustomerID
-left JOIN cte_customer_segments ccs ON ccs.CustomerID = c.CustomerID
+left JOIN cte_customer_segments ccs ON ccs.CustomerID = c.CustomerID;
 
 /* ==============================================================================
    8. Documentations & Comments

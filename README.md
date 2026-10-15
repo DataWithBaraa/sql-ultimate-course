@@ -18,7 +18,7 @@ sql-ultimate-course/
 └── 03_scripts/          every query of the course, one file per chapter
 ```
 
-The course uses two databases: `MyDatabase` for the first chapters, `SalesDB` for the rest. Every script starts with a `USE` line that names the one it needs.
+The course uses two databases: `MyDatabase` for the first chapters, `SalesDB` for the rest. Every script that works on a database starts with a `USE` line that names it.
 
 ---
 
