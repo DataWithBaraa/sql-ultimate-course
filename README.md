@@ -56,4 +56,4 @@ More on YouTube: [Data projects](https://www.youtube.com/playlist?list=PLNcg_FV9
 
 ## 🌟 About me
 
-Hi, I'm **Baraa Khatib Salkini**. I spent 17 years in enterprise data engineering and built one of the largest lakehouses at Mercedes-Benz. Today I teach data full-time at **Data With Baraa**: visually, step by step, from zero to hero.
+Hi, I'm **Baraa Khatib Salkini**. I spent years in enterprise data engineering and built one of the largest lakehouses at Mercedes-Benz. Today I teach data full-time at **Data With Baraa**: visually, step by step, from zero to hero.
